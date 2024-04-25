@@ -1,4 +1,5 @@
 ﻿using Controle_de_Medicamentos_2024_ConsoleApp.ModuloPessoa;
+using ControleMedicamentos.ConsoleApp.ModuloPessoa;
 
 namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
 {
@@ -6,6 +7,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
     {
         public Paciente requisitante; //Nome do paciente
         public Medicamento medicamentoRequisitado; // Nome do medicamento, Data de validade do medicamento
+        RepositorioPessoas repositorioPessoas;
         public static int GeradorDeRequisicao;
         public int numeroRequisicao = GeradorDeRequisicao;
 
@@ -19,10 +21,12 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
         {
             string nomeMedicamento = Program.ObterValor<string>("Qual o nome do medicamento requisitado?\n");
             string nomePaciente = Program.ObterValor<string>("Qual o nome do paciente?\n");
-            string registroSUS = Program.ObterValor<string>("Numero de registro no SUS:");
-
+            int registroSUS = Program.ObterValor<int>("Numero de registro no SUS:");
+            if (repositorioPessoas.ValidarPaciente(registroSUS))
+            {
+                Console.WriteLine("Falhou");
+            }
             string formulario = $"Número da requisição:{numeroRequisicao}\nNumero de Registro SUS:{registroSUS}\nNome: {nomePaciente}\nMedicamento:{nomeMedicamento}\n";
-
             return formulario;
         }
 

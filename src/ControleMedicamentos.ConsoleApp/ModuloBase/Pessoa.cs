@@ -1,7 +1,4 @@
-﻿using Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento;
-using ControleMedicamentos.ConsoleApp.ModuloBase;
-
-namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloPessoa
+﻿namespace ControleMedicamentos.ConsoleApp.ModuloBase
 {
     public class Pessoa : Entidade
     {
@@ -12,12 +9,12 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloPessoa
 
 
 
-        public Pessoa( string nome, string cpf, string endereco, DateTime dataDeNascimento)
+        public Pessoa(int id, string nome, string cpf, string endereco, DateTime dataDeNascimento) : base(id)
         {
             Cpf = cpf;
             Nome = nome;
             Endereco = endereco;
             DataDeNascimento = dataDeNascimento;
         }
-   }
+    } 
 }

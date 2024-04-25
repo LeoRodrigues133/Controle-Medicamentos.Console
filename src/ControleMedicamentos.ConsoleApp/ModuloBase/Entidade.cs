@@ -5,6 +5,15 @@
 
         public int Id { get; set; }
 
+
+
+        public Entidade(int id)
+        {
+            this.Id = id;
+           
+        }
+
+
         private int TotalRegistros
         {
             get

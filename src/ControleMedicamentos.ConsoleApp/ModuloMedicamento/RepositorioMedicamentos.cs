@@ -1,4 +1,6 @@
-﻿namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
+﻿using ControleMedicamentos.ConsoleApp.ModuloBase;
+
+namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
 {
     public class RepositorioMedicamentos
     {

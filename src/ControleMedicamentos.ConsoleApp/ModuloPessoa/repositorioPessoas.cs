@@ -1,13 +1,14 @@
 ﻿using Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento;
 using Controle_de_Medicamentos_2024_ConsoleApp;
 using Controle_de_Medicamentos_2024_ConsoleApp.ModuloPessoa;
+using ControleMedicamentos.ConsoleApp.ModuloBase;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
 {
     public class RepositorioPessoas
     {
-        public Pessoa pessoa;
-        public List<Pessoa> registroGeral = new List<Pessoa>();
+        public Paciente pessoa;
+        public List<Paciente> registroGeral = new List<Paciente>();
 
 
         public void CadastrarPessoa()
@@ -19,22 +20,23 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
             string nome = Program.ObterValor<string>("Digite o nome da Pessoa:\n");
             string cpf = Program.ObterValor<string>("CPF:\n");
             string endereco = Program.ObterValor<string>("cep:\n");
+            int registroSUS = Program.ObterValor<int>("SUS:\n");
             DateTime dataDeNascimento = Program.ObterValor<DateTime>("Digite DDNascimento: \n");
 
-            VerificarCpf(nome, cpf, endereco, dataDeNascimento);
+            VerificarCpf(registroSUS ,nome, cpf, endereco, dataDeNascimento);
             VerificarRegistroGeral();
         }
-        private void RegistrarPessoa(Pessoa pessoa)
+        private void RegistrarPessoa(Paciente pessoa)
         {
             registroGeral.Add(pessoa);
         }
-        public bool VerificarCpf(string nome, string novoCpf, string endereco, DateTime dataDeNascimento)
+        public bool VerificarCpf(int registroSUS, string nome, string novoCpf, string endereco, DateTime dataDeNascimento)
         {
-            Pessoa verificador = registroGeral.FirstOrDefault(p => p.Cpf == novoCpf);
+            Paciente verificador = registroGeral.FirstOrDefault(p => p.Cpf == novoCpf);
 
             if (verificador == null)
             {
-                Pessoa novaPessoa = new Pessoa(nome, novoCpf, endereco, dataDeNascimento);
+                Paciente novaPessoa = new Paciente(pessoa.Id, registroSUS ,nome, novoCpf, endereco, dataDeNascimento);
 
                 RegistrarPessoa(novaPessoa);
                 return false;
@@ -59,6 +61,20 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
                                   " |");
             }
             Console.ReadKey();
+        }
+
+        public bool ValidarPaciente(int NRSUS)
+        {
+            Paciente Verificador = registroGeral.FirstOrDefault(requisitor => requisitor.RegistroSUS == NRSUS);
+
+            if (Verificador == null)
+            {
+                Console.WriteLine($"Numero de Registro SUS: {NRSUS}. Não encontrado!");
+                return false;
+            }
+
+            Console.WriteLine("Deu certo");
+            return true;
         }
     }
 }

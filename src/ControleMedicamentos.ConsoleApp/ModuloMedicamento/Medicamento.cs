@@ -9,7 +9,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
         public int Quantidade { get; set; }
         public DateTime Validade { get; set; }
 
-        public Medicamento( string nome, string descricao, int quantidade, DateTime validade)
+        public Medicamento(int id,string nome, string descricao, int quantidade, DateTime validade) 
         {
             Nome = nome;
             Descricao = descricao;
@@ -41,7 +41,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
         }
         public override string ToString()
         {
-            return $"| {Nome.PadRight(19)}| {Descricao.PadRight(30)}| {Quantidade.ToString().PadRight(7)} | {Validade.ToShortDateString().PadRight(12)} |";
+            return $"|{Nome.PadRight(19)}| {Descricao.PadRight(30)}| {Quantidade.ToString().PadRight(7)} | {Validade.ToShortDateString().PadRight(12)} |";
         }
 
     }
