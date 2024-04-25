@@ -3,7 +3,7 @@
     public class RepositorioMedicamentos
     {
         public List<Medicamento> estoque = new List<Medicamento>();
-        public Medicamento medicamento;
+        public Medicamento? medicamento;
 
         public void AdicionarMedicamento()
         {
@@ -28,7 +28,7 @@
         }
         public bool VerificarMedicamento(string nome, string descricao, int quantidadeInicial, DateTime validade)
         {
-            Medicamento verificador = estoque.FirstOrDefault(m => m.nome == nome);
+            Medicamento verificador = estoque.FirstOrDefault(m => m.Nome == nome)!;
 
             if (verificador == null)
             {
@@ -39,7 +39,7 @@
             }
             else
             {
-                verificador.quantidade += quantidadeInicial;
+                verificador.Quantidade += quantidadeInicial;
                 return true;
             }
         }
@@ -49,10 +49,10 @@
 
             foreach (var medicamento in estoque)
             {
-                Console.WriteLine($"| {medicamento.nome}".PadRight(19) +
-                                  $"| {medicamento.descricao}".PadRight(30) +
-                                  $"| {medicamento.quantidade}".PadRight(7) +
-                                  $"| {medicamento.validade.ToShortDateString()}".PadRight(12) +
+                Console.WriteLine($"| {medicamento.Nome}".PadRight(19) +
+                                  $"| {medicamento.Descricao}".PadRight(30) +
+                                  $"| {medicamento.Quantidade}".PadRight(7) +
+                                  $"| {medicamento.Validade.ToShortDateString()}".PadRight(12) +
                                   " |");
             }
             Console.ReadKey();

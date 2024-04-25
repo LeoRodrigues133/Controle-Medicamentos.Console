@@ -8,28 +8,33 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
     {
         public RepositorioMedicamentos estoqueMedicamentos;
         public RepositorioPessoas registroPessoas;
+        public Requisicao requisicao;
 
-        public Menu(RepositorioMedicamentos estoque, RepositorioPessoas registro)
+        public Menu(RepositorioMedicamentos estoque, RepositorioPessoas registro, Requisicao requisicao)
         {
             this.estoqueMedicamentos = estoque;
             this.registroPessoas = registro;
+            this.requisicao = requisicao;
         }
 
-        public void menu()
+        public void MenuInicial()
         {
             while (true)
             {
-                Console.WriteLine("Escolha uma opção: \n1 - Cadastrar Medicamentos\n2 - Cadastrar Pessoas\n0 - Sair\n\n");
+                Console.WriteLine("Escolha uma opção: \n1 - Cadastrar Medicamentos\n2 - Cadastrar Pessoas\n3 - Requisição de Medicamentos\n0 - Sair\n\n");
 
                 int opcao = Program.ObterValor<int>("Digite:\n");
 
                 switch (opcao)
                 {
                     case 1:
-                        menuMedicamentos();
+                        MenuMedicamentos();
                         break;
                     case 2:
-                        menuPessoas();
+                        MenuPessoas();
+                        break;
+                    case 3:
+                        MenuRequisicao();
                         break;
                     default:
                         Console.WriteLine("Opção inválida");
@@ -37,11 +42,11 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 }
             }
         }
-        public void menuMedicamentos()
+        public void MenuMedicamentos()
         {
             while (true)
             {
-                Console.WriteLine("CADASTRO DE MEDICAMENTOS");
+                Console.WriteLine("CADASTRO DE MEDICAMENTOS!");
                 Console.WriteLine("Escolha uma opção: \n1 - Cadastro\n2 - Ver Estoque\n3 - Atualizar Estoque\n4 - Excluir Item\n0 - Sair\n\n");
 
                 int opcao = Program.ObterValor<int>("Digite:\n");
@@ -69,9 +74,9 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 }
             }
         }
-        public void menuPessoas()
+        public void MenuPessoas()
         {
-            Console.WriteLine("CADASTRO DE PESSOAS");
+            Console.WriteLine("CADASTRO DE PESSOAS!");
             while (true)
             {
                 Console.WriteLine("Escolha uma opção: \n1 - Cadastro\n2 - Ver Estoque\n3 - Atualizar Estoque\n4 - Excluir Item\n0 - Sair\n\n");
@@ -101,7 +106,31 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 }
             }
         }
-        public bool continua(int opcao)
+
+        public void MenuRequisicao()
+        {
+            Console.WriteLine("ATENDIMENTO DE UNIDADE DE SAÚDE!");
+            while (true)
+            {
+                Console.WriteLine("Escolha uma opção: \n1 - Fazer Pedido de medicamento\n0 - Sair\n\n");
+
+                int opcao = Program.ObterValor<int>("Digite:\n");
+
+                switch (opcao)
+                {
+                    case 1:
+                        requisicao.GerarRequisicao();
+                        break;
+                    case 0:
+                        Console.WriteLine("Saindo...");
+                        break;
+                    default:
+                        Console.WriteLine("Opção inválida!");
+                        break;
+                }
+            }
+        }
+        public bool Continua(int opcao)
         {
             if (opcao == 0)
                 return false;

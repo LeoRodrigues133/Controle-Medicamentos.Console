@@ -6,8 +6,8 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
     {
         public Paciente requisitante; //Nome do paciente
         public Medicamento medicamentoRequisitado; // Nome do medicamento, Data de validade do medicamento
-        public static int geradorDeRequisicao;
-        public int numeroRequisicao = geradorDeRequisicao;
+        public static int GeradorDeRequisicao;
+        public int numeroRequisicao = GeradorDeRequisicao;
 
 
         public Requisicao(int numeroRequisicao)
@@ -17,11 +17,11 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
 
         public string GerarRequisicao()
         {
-            string nomeMedicamento = "Dipirona";
-            string nomePaciente = "Carlos";
-            DateTime validadeMedicamento = new DateTime(12 / 12 / 2050);
+            string nomeMedicamento = Program.ObterValor<string>("Qual o nome do medicamento requisitado?\n");
+            string nomePaciente = Program.ObterValor<string>("Qual o nome do paciente?\n");
+            string registroSUS = Program.ObterValor<string>("Numero de registro no SUS:");
 
-            string formulario = $"Número da requisição:{numeroRequisicao}\nNome: {nomePaciente}\nMedicamento:{nomeMedicamento}\nValidade:{validadeMedicamento}";
+            string formulario = $"Número da requisição:{numeroRequisicao}\nNumero de Registro SUS:{registroSUS}\nNome: {nomePaciente}\nMedicamento:{nomeMedicamento}\n";
 
             return formulario;
         }
@@ -30,7 +30,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
         {
             numeroRequisicao = 0;
 
-            return ++geradorDeRequisicao;
+            return ++GeradorDeRequisicao;
         }
 
     }

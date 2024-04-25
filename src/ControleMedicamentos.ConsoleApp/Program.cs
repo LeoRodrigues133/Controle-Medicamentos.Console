@@ -12,13 +12,14 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp
             Console.WriteLine("Controle de Medicamentos | Academia de Programação 2024!\n");
             RepositorioMedicamentos repositorioMedicamentos = new RepositorioMedicamentos();
             RepositorioPessoas repositorioPessoas = new RepositorioPessoas();
-            Menu menu = new Menu(repositorioMedicamentos, repositorioPessoas);
+            Requisicao requisicao = new Requisicao(0);
+            Menu menu = new Menu(repositorioMedicamentos, repositorioPessoas, requisicao);
 
-            menu.menu();
+            menu.MenuInicial();
         }
 
         #region Métodos da Main
-        public static tipo ObterValor<tipo>(string texto)
+        public static TIPO ObterValor<TIPO>(string texto)
         {
             Console.Write(texto);
 
@@ -26,12 +27,12 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp
 
             try
             {
-                return (tipo)Convert.ChangeType(input, typeof(tipo));
+                return (TIPO)Convert.ChangeType(input, typeof(TIPO));
             }
             catch (FormatException)
             {
                 Console.WriteLine("Formato inválido!");
-                return ObterValor<tipo>(texto);
+                return ObterValor<TIPO>(texto);
             }
         }
         #endregion

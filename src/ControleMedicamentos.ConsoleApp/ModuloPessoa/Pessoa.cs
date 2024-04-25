@@ -1,18 +1,23 @@
 ﻿using Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento;
+using ControleMedicamentos.ConsoleApp.ModuloBase;
 
 namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloPessoa
 {
-    public class Pessoa
+    public class Pessoa : Entidade
     {
-        public string cpf, nome, endereco;
-        public DateTime dataDeNascimento;
+        public string Cpf { get; set; }
+        public string Nome { get; set; }
+        public string Endereco { get; set; }
+        public DateTime DataDeNascimento { get; set; }
 
-        public Pessoa(string nome, string cpf, string endereco, DateTime dataDeNascimento)
+
+
+        public Pessoa( string nome, string cpf, string endereco, DateTime dataDeNascimento)
         {
-            this.cpf = cpf;
-            this.nome = nome;
-            this.endereco = endereco;
-            this.dataDeNascimento = dataDeNascimento;
+            Cpf = cpf;
+            Nome = nome;
+            Endereco = endereco;
+            DataDeNascimento = dataDeNascimento;
         }
-    }
+   }
 }

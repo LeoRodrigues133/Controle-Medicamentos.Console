@@ -1,22 +1,25 @@
-﻿namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
-{
-    public class Medicamento
-    {
-        public string nome, descricao;
-        public int quantidade = 1000;
-        public DateTime validade;
+﻿using ControleMedicamentos.ConsoleApp.ModuloBase;
 
-        public Medicamento(string nome, string descricao, int quantidade, DateTime validade)
+namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
+{
+    public class Medicamento : Entidade
+    {
+        public string Nome { get; set; }
+        public string Descricao { get; set; }
+        public int Quantidade { get; set; }
+        public DateTime Validade { get; set; }
+
+        public Medicamento( string nome, string descricao, int quantidade, DateTime validade)
         {
-            this.nome = nome;
-            this.descricao = descricao;
-            this.quantidade = quantidade;
-            this.validade = validade;
+            Nome = nome;
+            Descricao = descricao;
+            Quantidade = quantidade;
+            Validade = validade;
         }
 
         public int VerificarQuantidade(int incrementarQuantidade)
         {
-            incrementarQuantidade += quantidade;
+            incrementarQuantidade += Quantidade;
 
             return incrementarQuantidade;
         }
@@ -32,11 +35,14 @@
             }
             else
             {
-                Console.WriteLine("Na validade");
+                Console.WriteLine("Medicamento na validade");
                 return true;
             }
         }
-
+        public override string ToString()
+        {
+            return $"| {Nome.PadRight(19)}| {Descricao.PadRight(30)}| {Quantidade.ToString().PadRight(7)} | {Validade.ToShortDateString().PadRight(12)} |";
+        }
 
     }
 }

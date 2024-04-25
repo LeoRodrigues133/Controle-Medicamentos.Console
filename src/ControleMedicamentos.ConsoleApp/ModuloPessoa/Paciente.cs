@@ -2,21 +2,20 @@
 
 namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloPessoa
 {
-    public class Paciente
+    public class Paciente : Pessoa
     {
         public Requisicao requisicaoMedicamentos;
-        public Pessoa pessoa;
-        public int registroSUS;
-        public string cpf, nome, endereco, requisicao;
+        public int RegistroSUS { get; set; }
 
-        public Paciente(int registroSUS, string requisicao, string nome, string cpf, string endereco, Pessoa pessoa)
+        // Correção do construtor
+        public Paciente(int registroSUS, string nome, string cpf, string endereco, DateTime dataDeNascimento) : base(nome, cpf, endereco, dataDeNascimento)
         {
-            this.registroSUS = registroSUS;
-            this.requisicao = requisicaoMedicamentos.GerarRequisicao();
-            this.nome = pessoa.nome;
-            this.cpf = pessoa.cpf;
-            this.endereco = pessoa.endereco;
-            this.pessoa = pessoa;
+            RegistroSUS = registroSUS;
+        }
+
+        protected void FazerRequisicao()
+        {
+
         }
     }
 }

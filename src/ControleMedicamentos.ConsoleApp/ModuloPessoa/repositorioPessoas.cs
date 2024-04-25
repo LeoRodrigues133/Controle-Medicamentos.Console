@@ -30,7 +30,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
         }
         public bool VerificarCpf(string nome, string novoCpf, string endereco, DateTime dataDeNascimento)
         {
-            Pessoa verificador = registroGeral.FirstOrDefault(p => p.cpf == novoCpf);
+            Pessoa verificador = registroGeral.FirstOrDefault(p => p.Cpf == novoCpf);
 
             if (verificador == null)
             {
@@ -52,10 +52,10 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
 
             foreach (var pessoa in registroGeral)
             {
-                Console.WriteLine($"| {pessoa.nome}".PadRight(10) +
-                                  $"| {pessoa.cpf}".PadRight(17) +
-                                  $"| {pessoa.endereco}".PadRight(12) +
-                                  $"| {pessoa.dataDeNascimento.ToShortDateString()}".PadRight(10) +
+                Console.WriteLine($"| {pessoa.Nome}".PadRight(10) +
+                                  $"| {pessoa.Cpf}".PadRight(17) +
+                                  $"| {pessoa.Endereco}".PadRight(12) +
+                                  $"| {pessoa.DataDeNascimento.ToShortDateString()}".PadRight(10) +
                                   " |");
             }
             Console.ReadKey();
