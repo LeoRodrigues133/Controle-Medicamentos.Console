@@ -39,10 +39,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
                 return true;
             }
         }
-        public override string ToString()
-        {
-            return $"| {Nome.PadRight(19)}| {Descricao.PadRight(30)}| {Quantidade.ToString().PadRight(7)} | {Validade.ToShortDateString().PadRight(12)} |";
-        }
+
 
     }
 }

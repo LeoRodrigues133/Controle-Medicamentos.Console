@@ -66,6 +66,8 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                         estoqueMedicamentos.ExcluirMedicamento();
                         break;
                     case 0:
+                        MenuInicial();
+
                         Console.WriteLine("Saindo...");
                         break;
                     default:
@@ -98,6 +100,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                         Console.WriteLine("Indisponível!");
                         break;
                     case 0:
+                        MenuInicial();
                         Console.WriteLine("Saindo...");
                         break;
                     default:
@@ -119,9 +122,13 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 switch (opcao)
                 {
                     case 1:
-                        requisicao.GerarRequisicao();
+
+
+                        Console.WriteLine(requisicao.GerarRequisicao());
                         break;
                     case 0:
+                        MenuInicial();
+
                         Console.WriteLine("Saindo...");
                         break;
                     default:

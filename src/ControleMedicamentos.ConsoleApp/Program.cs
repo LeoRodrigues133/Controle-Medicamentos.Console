@@ -12,6 +12,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp
             Console.WriteLine("Controle de Medicamentos | Academia de Programação 2024!\n");
             RepositorioMedicamentos repositorioMedicamentos = new RepositorioMedicamentos();
             RepositorioPessoas repositorioPessoas = new RepositorioPessoas();
+
             Requisicao requisicao = new Requisicao(0);
             Menu menu = new Menu(repositorioMedicamentos, repositorioPessoas, requisicao);
 

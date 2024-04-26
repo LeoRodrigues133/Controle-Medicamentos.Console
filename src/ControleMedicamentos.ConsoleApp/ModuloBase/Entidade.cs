@@ -2,16 +2,17 @@
 {
     public class Entidade
     {
+        private static int contador = 1;
+        public int Id { get; } 
 
-        public int Id { get; set; }
-
-        private int TotalRegistros
+        public Entidade()
         {
-            get
-            {
-                return Id++;
-            }
+            Id = GerarNovoId();
+        }   
+
+        private int GerarNovoId()
+        {
+            return contador++;
         }
     }
 }
-
