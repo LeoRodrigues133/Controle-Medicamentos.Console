@@ -2,15 +2,15 @@
 {
     public class Entidade
     {
-        private static int contador = 1;
-        public int Id { get; } 
+        public static int contador = 0;
+        public int Id { get; }
 
         public Entidade()
         {
             Id = GerarNovoId();
-        }   
+        }
 
-        private int GerarNovoId()
+        protected int GerarNovoId()
         {
             return contador++;
         }
