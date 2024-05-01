@@ -12,7 +12,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloPessoa
 
 
 
-        public Pessoa( string nome, string cpf, string endereco, DateTime dataDeNascimento)
+        public Pessoa(int id, string nome, string cpf, string endereco, DateTime dataDeNascimento)
         {
             Cpf = cpf;
             Nome = nome;

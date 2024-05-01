@@ -9,19 +9,13 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
         public int Quantidade { get; set; }
         public DateTime Validade { get; set; }
 
-        public Medicamento( string nome, string descricao, int quantidade, DateTime validade)
+        public Medicamento(int id, string nome, string descricao, int quantidade, DateTime validade) : base()
         {
+
             Nome = nome;
             Descricao = descricao;
             Quantidade = quantidade;
             Validade = validade;
-        }
-
-        public int VerificarQuantidade(int incrementarQuantidade)
-        {
-            incrementarQuantidade += Quantidade;
-
-            return incrementarQuantidade;
         }
 
         public static bool VerificarValidade(DateTime validade)
@@ -39,7 +33,5 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
                 return true;
             }
         }
-
-
     }
 }

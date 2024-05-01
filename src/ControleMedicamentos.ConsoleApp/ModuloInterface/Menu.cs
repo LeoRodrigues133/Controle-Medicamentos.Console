@@ -1,5 +1,8 @@
 ﻿using Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento;
+using Controle_de_Medicamentos_2024_ConsoleApp.ModuloPessoa;
+using ControleMedicamentos.ConsoleApp.ModuloMedicamento;
 using ControleMedicamentos.ConsoleApp.ModuloPessoa;
+using ControleMedicamentos.ConsoleApp.ModuloRequisição;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
@@ -10,11 +13,27 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
         public RepositorioPessoas registroPessoas;
         public Requisicao requisicao;
 
-        public Menu(RepositorioMedicamentos estoque, RepositorioPessoas registro, Requisicao requisicao)
+        public InterfacePessoas uiPessoas;
+        public InterfaceMedicamentos uiMedicamentos;
+        public InterfaceRequisito uiRequisicao;
+
+        public Medicamento mTest;
+        public Paciente pTest;
+
+        public DominioPessoas dPessoas;
+        public DominioMedicamentos dMedicamentos;
+        public DominioRequisicao dRequisicao;
+
+        public Menu(RepositorioMedicamentos estoque, RepositorioPessoas registro, InterfacePessoas uiPessoas,InterfaceMedicamentos uiMedicamentos, Medicamento mTest, Paciente pTest, DominioPessoas dPessoas, DominioMedicamentos dMedicamentos)
         {
             this.estoqueMedicamentos = estoque;
             this.registroPessoas = registro;
-            this.requisicao = requisicao;
+            this.uiPessoas = uiPessoas;
+            this.uiMedicamentos = uiMedicamentos;
+            this.pTest = pTest;
+            this.mTest = mTest;
+            this.dPessoas = dPessoas;
+            this.dMedicamentos = dMedicamentos;
         }
 
         public void MenuInicial()
@@ -36,6 +55,9 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                     case 3:
                         MenuRequisicao();
                         break;
+                    case 0:
+                        Environment.Exit(0);
+                        break;
                     default:
                         Console.WriteLine("Opção inválida");
                         break;
@@ -50,20 +72,22 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 Console.WriteLine("Escolha uma opção: \n1 - Cadastro\n2 - Ver Estoque\n3 - Atualizar Estoque\n4 - Excluir Item\n0 - Sair\n\n");
 
                 int opcao = Program.ObterValor<int>("Digite:\n");
-
+                int Seletor;
                 switch (opcao)
                 {
                     case 1:
-                        estoqueMedicamentos.AdicionarMedicamento();
+                        uiMedicamentos.MenuAdicionarMedicamentos(dMedicamentos,mTest, estoqueMedicamentos);
                         break;
                     case 2:
-                        estoqueMedicamentos.VerificarEstoque();
+                        estoqueMedicamentos.MenuVerificarMedicamentos(estoqueMedicamentos);
                         break;
                     case 3:
-                        estoqueMedicamentos.AtualizarEstoque();
+                        uiMedicamentos.MenuAtualizarMedicamento(dMedicamentos);
                         break;
                     case 4:
-                        estoqueMedicamentos.ExcluirMedicamento();
+                        Seletor = Program.ObterValor<int>("Selecione um ID para excluir:");
+
+                        estoqueMedicamentos.ExcluirMedicamento(Seletor, estoqueMedicamentos);
                         break;
                     case 0:
                         MenuInicial();
@@ -88,16 +112,16 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 switch (opcao)
                 {
                     case 1:
-                        registroPessoas.CadastrarPessoa();
+                        uiPessoas.MenuCadastrarPaciente(dPessoas, pTest);
                         break;
                     case 2:
-                        registroPessoas.VerificarRegistroGeral();
+                        registroPessoas.MenuVerPessoas(registroPessoas);
                         break;
                     case 3:
-                        Console.WriteLine("Indisponível!");
+                        uiPessoas.MenuAtualizarPessoas();
                         break;
                     case 4:
-                        Console.WriteLine("Indisponível!");
+                        uiPessoas.MenuExluirPessoa();
                         break;
                     case 0:
                         MenuInicial();
@@ -122,9 +146,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 switch (opcao)
                 {
                     case 1:
-
-
-                        Console.WriteLine(requisicao.GerarRequisicao());
+                        uiRequisicao.GerarRequisicao();
                         break;
                     case 0:
                         MenuInicial();
