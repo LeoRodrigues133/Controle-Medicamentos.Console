@@ -9,7 +9,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
         public RepositorioRequisicao rRequisicao;
         public RepositorioPessoas rPessoas;
         public RepositorioMedicamentos rMedicamentos;
-        public bool BuscarMedicamento(string nomeMedicamento)
+        public bool BuscarMedicamento(string nomeMedicamento, RepositorioMedicamentos rMedicamentos)
         {
             Medicamento medicamentoRequisitado = rMedicamentos.estoque.FirstOrDefault(m => m.Nome == nomeMedicamento);
             if (medicamentoRequisitado == null)
@@ -21,7 +21,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
                 return true;
         }
 
-        public bool BuscarPaciente(string nomePaciente)
+        public bool BuscarPaciente(string nomePaciente, RepositorioPessoas rPessoas)
         {
             Paciente requisitante = rPessoas.registroGeral.FirstOrDefault(p => p.Nome == nomePaciente);
             if (requisitante == null)
@@ -37,41 +37,17 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
             rRequisicao.registroRequisicao.Add(requisicao);
         }
 
-        public bool VerificarEstoque(string medicamentoSolicitado)
+
+        public bool VerificarNRSUS(int verificarNRSUS, Paciente Verificador, RepositorioPessoas rPessoas)
         {
-            Medicamento Verificador = rMedicamentos.estoque.FirstOrDefault(M => M.Nome == medicamentoSolicitado);
+
+            Verificador = rPessoas.registroGeral.FirstOrDefault(RegistroSUS => RegistroSUS.RegistroSUS == verificarNRSUS);
 
             if (Verificador == null)
             {
-                Console.WriteLine("Medicamento em falta!");
+                Console.WriteLine("Paciente não encontrado!");
                 return false;
             }
-
-            Console.WriteLine("Medicamento em estoque!");
-            return true;
-
-        }
-        public bool VerificarRegistro(string verificarRegistro)
-        {
-
-            Paciente Verificador = rPessoas.registroGeral.FirstOrDefault(P => P.Nome == verificarRegistro);
-
-            if (Verificador == null)
-            {
-                Console.WriteLine("Paciente não encontrado!"); return false;
-            }
-
-            Console.WriteLine("Paciente encontrado!");
-            return true;
-        }
-
-        public bool VerificarNRSUS(int verificarNRSUS)
-        {
-
-            Paciente Vericador = rPessoas.registroGeral.FirstOrDefault(RegistroSUS => RegistroSUS.RegistroSUS == verificarNRSUS);
-
-            if (Vericador == null)
-                return false;
 
             Console.WriteLine("NRSUS encontrado!");
 

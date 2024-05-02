@@ -16,22 +16,24 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp
 
             DominioPessoas dPessoas = new DominioPessoas();
             DominioMedicamentos dMedicamentos = new DominioMedicamentos();
+            DominioRequisicao dRequisicao = new DominioRequisicao();
             RepositorioMedicamentos repositorioMedicamentos = new RepositorioMedicamentos();
             RepositorioPessoas repositorioPessoas = new RepositorioPessoas();
             Entidade e = new();
 
             #region Objetos Test
-            Paciente p = new(e.Id, "Paciente Teste", 123456789, "123.123.123-23", "Jão da curva", DateTime.Now);
+            Paciente p = new(e.Id, "PT",123, "123.123.123-23", "Jão da curva", DateTime.Now);
             repositorioPessoas.registroGeral.Add(p);
-            Medicamento m = new(e.Id, "dipirona", "Se dor", 1, new DateTime(01 / 12 / 2000));
+            Medicamento m = new(e.Id, "DP", "Se dor", 1, new DateTime(01 / 12 / 2000));
             repositorioMedicamentos.estoque.Add(m);
             Requisicao requisicao = new Requisicao(e.Id);
             #endregion
 
             InterfacePessoas uiPessoas = new InterfacePessoas(repositorioPessoas);
             InterfaceMedicamentos uiMedicamentos = new InterfaceMedicamentos(repositorioMedicamentos);
+            InterfaceRequisicao uiRequisicao = new InterfaceRequisicao();
 
-            Menu menu = new Menu(repositorioMedicamentos, repositorioPessoas, uiPessoas,uiMedicamentos, m, p, dPessoas, dMedicamentos);
+            Menu menu = new Menu(repositorioMedicamentos, repositorioPessoas, uiPessoas, uiMedicamentos, uiRequisicao, m, p, dPessoas, dMedicamentos, dRequisicao);
 
             menu.MenuInicial();
         }
@@ -44,7 +46,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp
             string input = Console.ReadLine();
 
             try
-            
+
             {
                 return (TIPO)Convert.ChangeType(input, typeof(TIPO));
             }

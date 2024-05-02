@@ -15,7 +15,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
 
         public InterfacePessoas uiPessoas;
         public InterfaceMedicamentos uiMedicamentos;
-        public InterfaceRequisito uiRequisicao;
+        public InterfaceRequisicao uiRequisicao;
 
         public Medicamento mTest;
         public Paciente pTest;
@@ -24,16 +24,18 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
         public DominioMedicamentos dMedicamentos;
         public DominioRequisicao dRequisicao;
 
-        public Menu(RepositorioMedicamentos estoque, RepositorioPessoas registro, InterfacePessoas uiPessoas,InterfaceMedicamentos uiMedicamentos, Medicamento mTest, Paciente pTest, DominioPessoas dPessoas, DominioMedicamentos dMedicamentos)
+        public Menu(RepositorioMedicamentos estoque, RepositorioPessoas registro, InterfacePessoas uiPessoas, InterfaceMedicamentos uiMedicamentos, InterfaceRequisicao uiRequisicao, Medicamento mTest, Paciente pTest, DominioPessoas dPessoas, DominioMedicamentos dMedicamentos, DominioRequisicao dRequisicao)
         {
             this.estoqueMedicamentos = estoque;
             this.registroPessoas = registro;
             this.uiPessoas = uiPessoas;
             this.uiMedicamentos = uiMedicamentos;
+            this.uiRequisicao = uiRequisicao;
             this.pTest = pTest;
             this.mTest = mTest;
             this.dPessoas = dPessoas;
             this.dMedicamentos = dMedicamentos;
+            this.dRequisicao = dRequisicao;
         }
 
         public void MenuInicial()
@@ -53,7 +55,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                         MenuPessoas();
                         break;
                     case 3:
-                        MenuRequisicao();
+                        MenuRequisicao(uiRequisicao);
                         break;
                     case 0:
                         Environment.Exit(0);
@@ -76,7 +78,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 switch (opcao)
                 {
                     case 1:
-                        uiMedicamentos.MenuAdicionarMedicamentos(dMedicamentos,mTest, estoqueMedicamentos);
+                        uiMedicamentos.MenuAdicionarMedicamentos(dMedicamentos, mTest, estoqueMedicamentos);
                         break;
                     case 2:
                         estoqueMedicamentos.MenuVerificarMedicamentos(estoqueMedicamentos);
@@ -134,7 +136,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
             }
         }
 
-        public void MenuRequisicao()
+        public void MenuRequisicao(InterfaceRequisicao uiRequisicao)
         {
             Console.WriteLine("ATENDIMENTO DE UNIDADE DE SAÚDE!");
             while (true)
@@ -146,7 +148,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 switch (opcao)
                 {
                     case 1:
-                        uiRequisicao.GerarRequisicao();
+                        uiRequisicao.GerarRequisicao(dRequisicao, pTest, registroPessoas, estoqueMedicamentos);
                         break;
                     case 0:
                         MenuInicial();
