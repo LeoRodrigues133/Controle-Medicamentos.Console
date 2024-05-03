@@ -1,4 +1,7 @@
-﻿using Controle_de_Medicamentos_2024_ConsoleApp.ModuloPessoa;
+﻿using Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface;
+using Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento;
+using Controle_de_Medicamentos_2024_ConsoleApp;
+using Controle_de_Medicamentos_2024_ConsoleApp.ModuloPessoa;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
 {
@@ -6,24 +9,20 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
     {
         public InterfacePessoas uiPessoas;
         public RepositorioPessoas rPessoas;
+        public Menu menu;
 
         public bool VerificarCpf(string cpf, RepositorioPessoas rPessoas)
         {
 
-            Paciente verificador = rPessoas.registroGeral.FirstOrDefault(p => p.Cpf == cpf);
+            Paciente verificador = rPessoas.RegistroPessoas.FirstOrDefault(p => p.Cpf == cpf);
 
             if (verificador == null)
-            {
-            Console.WriteLine("Cadastro efetuado com sucesso!");
             return true;
-            }
 
                 Console.WriteLine("Esta Pessoa já esta cadastrada!");
                 Console.ReadKey();
                 return false;
         }
-      
-
 
         public bool EditarNome(Paciente pacienteEditado, string novoNome)
         {
@@ -54,15 +53,17 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
         public void Excluir(int Seletor)
         {
 
-            Paciente Verificador = (Paciente)rPessoas.registroGeral.FirstOrDefault(M => M.Id == Seletor);
+            Paciente Verificador = (Paciente)rPessoas.RegistroPessoas.FirstOrDefault(M => M.Id == Seletor);
 
             if (Verificador == null)
                 Console.WriteLine("Nenhum paciente encontrado!");
 
             else
             {
-                rPessoas.registroGeral.Remove(Verificador);
+                rPessoas.RegistroPessoas.Remove(Verificador);
             }
         }
+
+
     }
 }

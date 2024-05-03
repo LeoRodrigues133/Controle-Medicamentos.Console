@@ -28,20 +28,20 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
             int quantidade = Program.ObterValor<int>("Quantidade de medicamentos adicionados:\n");
             DateTime validade = Program.ObterValor<DateTime>("Digite a validade do medicamento (dd/mm/yyyy):\n");
 
-            if (dominio.VerificarMedicamento(nome,quantidade,rMedicamentos, Medicamento))
-            {
-                Medicamento novoMedicamento = new Medicamento(id.Id, nome, descricao, quantidade, validade);
-                rMedicamentos.estoque.Add(novoMedicamento);
-            }
+            if (Medicamento.VerificarValidade(validade))
+                if (dominio.VerificarMedicamento(nome, quantidade, rMedicamentos, Medicamento))
+                {
+                    Medicamento novoMedicamento = new Medicamento(nome, descricao, quantidade, validade);
+                    rMedicamentos.Adicionar(novoMedicamento, rMedicamentos);
+                }
         }
 
 
-        public void MenuAtualizarMedicamento(DominioMedicamentos dMedicamentos)
+        public void MenuAtualizarMedicamento(int Seletor, DominioMedicamentos dMedicamentos)
         {
-            rMedicamentos.MenuVerificarMedicamentos(rMedicamentos);
-            int Seletor = Program.ObterValor<int>("Selecione um ID: ");
+            rMedicamentos.MenuVerificarMedicamentos(rMedicamentos, dMedicamentos);
 
-            rMedicamentos.Atualizar(Seletor, dMedicamentos);
+            rMedicamentos.AtualizarMedicamento(Seletor, dMedicamentos, rMedicamentos);
         }
 
 

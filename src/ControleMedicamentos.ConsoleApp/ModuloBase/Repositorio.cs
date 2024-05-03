@@ -4,12 +4,13 @@ namespace ControleMedicamentos.ConsoleApp.ModuloBase
 {
     public class Repositorio
     {
-        public List<Entidade> registroGeral1 = new List<Entidade>();
+        public List<Entidade> RegistroGeral = new List<Entidade>();
 
         public Entidade entidade;
-        public void Cadastrar()
+        public void Cadastrar(Entidade registro, Repositorio registroGeral)
         {
-            
+            registroGeral.RegistroGeral.Add(registro);
+
         }
         //public Paciente(int id, string nome, int registroSUS, string cpf, string endereco, DateTime dataDeNascimento)
 
@@ -24,10 +25,11 @@ namespace ControleMedicamentos.ConsoleApp.ModuloBase
             string cpf = Program.ObterValor<string>("CPF:\n");
             string endereco = Program.ObterValor<string>("cep:\n");
             int registroSUS = Program.ObterValor<int>("SUS:\n");
-            DateTime dataDeNascimento = Program.ObterValor<DateTime>("Digite DDNascimento: \n");
+            DateTime dataDeNascimento = Program.ObterValor<DateTime>("Digite data de Nascimento: \n");
 
             PassarValorID(nome, registroSUS, cpf, endereco, dataDeNascimento);
         }
+
 
     }
 }

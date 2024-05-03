@@ -10,9 +10,10 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
         public RepositorioMedicamentos rM;
         public RepositorioPessoas rP;
         public int IdRequisicao;
-
-        public Requisicao(int IdRequisicao) : base ()
+        public static int idRequisicao = 1;
+        public Requisicao(int IdRequisicao) : base()
         {
+            Id = idRequisicao++;
         }
     }
 }

@@ -17,14 +17,14 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
         public InterfaceMedicamentos uiMedicamentos;
         public InterfaceRequisicao uiRequisicao;
 
-        public Medicamento mTest;
+        public Medicamento medicamento;
         public Paciente pTest;
 
         public DominioPessoas dPessoas;
         public DominioMedicamentos dMedicamentos;
         public DominioRequisicao dRequisicao;
 
-        public Menu(RepositorioMedicamentos estoque, RepositorioPessoas registro, InterfacePessoas uiPessoas, InterfaceMedicamentos uiMedicamentos, InterfaceRequisicao uiRequisicao, Medicamento mTest, Paciente pTest, DominioPessoas dPessoas, DominioMedicamentos dMedicamentos, DominioRequisicao dRequisicao)
+        public Menu(RepositorioMedicamentos estoque, RepositorioPessoas registro, InterfacePessoas uiPessoas, InterfaceMedicamentos uiMedicamentos, InterfaceRequisicao uiRequisicao, Paciente pTest, DominioPessoas dPessoas, DominioMedicamentos dMedicamentos, DominioRequisicao dRequisicao)
         {
             this.estoqueMedicamentos = estoque;
             this.registroPessoas = registro;
@@ -32,7 +32,6 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
             this.uiMedicamentos = uiMedicamentos;
             this.uiRequisicao = uiRequisicao;
             this.pTest = pTest;
-            this.mTest = mTest;
             this.dPessoas = dPessoas;
             this.dMedicamentos = dMedicamentos;
             this.dRequisicao = dRequisicao;
@@ -78,13 +77,15 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 switch (opcao)
                 {
                     case 1:
-                        uiMedicamentos.MenuAdicionarMedicamentos(dMedicamentos, mTest, estoqueMedicamentos);
+                        uiMedicamentos.MenuAdicionarMedicamentos(dMedicamentos, medicamento, estoqueMedicamentos);
                         break;
                     case 2:
-                        estoqueMedicamentos.MenuVerificarMedicamentos(estoqueMedicamentos);
+                        estoqueMedicamentos.MenuVerificarMedicamentos(estoqueMedicamentos, dMedicamentos);
                         break;
                     case 3:
-                        uiMedicamentos.MenuAtualizarMedicamento(dMedicamentos);
+                        Seletor = Program.ObterValor<int>("Selecione um ID: ");
+
+                        uiMedicamentos.MenuAtualizarMedicamento(Seletor, dMedicamentos);
                         break;
                     case 4:
                         Seletor = Program.ObterValor<int>("Selecione um ID para excluir:");
@@ -110,20 +111,24 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 Console.WriteLine("Escolha uma opção: \n1 - Cadastro\n2 - Ver Estoque\n3 - Atualizar Estoque\n4 - Excluir Item\n0 - Sair\n\n");
 
                 int opcao = Program.ObterValor<int>("Digite:\n");
-
+                int Seletor;
                 switch (opcao)
                 {
                     case 1:
-                        uiPessoas.MenuCadastrarPaciente(dPessoas, pTest);
+                        uiPessoas.MenuCadastrarPaciente(dPessoas, pTest, dRequisicao);
                         break;
                     case 2:
                         registroPessoas.MenuVerPessoas(registroPessoas);
                         break;
                     case 3:
-                        uiPessoas.MenuAtualizarPessoas();
+                        Seletor = Program.ObterValor<int>("Selecione o ID que deseja atualizar: ");
+
+                        uiPessoas.MenuAtualizarPessoas(Seletor);
                         break;
                     case 4:
-                        uiPessoas.MenuExluirPessoa();
+                        Seletor = Program.ObterValor<int>("Digite o ID que deseja deletar: ");
+
+                        uiPessoas.MenuExluirPessoa(Seletor);
                         break;
                     case 0:
                         MenuInicial();
@@ -148,7 +153,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 switch (opcao)
                 {
                     case 1:
-                        uiRequisicao.GerarRequisicao(dRequisicao, pTest, registroPessoas, estoqueMedicamentos);
+                        uiRequisicao.GerarRequisicao(dRequisicao, pTest, registroPessoas, estoqueMedicamentos, dMedicamentos, medicamento);
                         break;
                     case 0:
                         MenuInicial();

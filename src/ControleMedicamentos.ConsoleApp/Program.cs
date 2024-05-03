@@ -17,23 +17,40 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp
             DominioPessoas dPessoas = new DominioPessoas();
             DominioMedicamentos dMedicamentos = new DominioMedicamentos();
             DominioRequisicao dRequisicao = new DominioRequisicao();
-            RepositorioMedicamentos repositorioMedicamentos = new RepositorioMedicamentos();
+            RepositorioMedicamentos repositorioMedicamentos = new RepositorioMedicamentos(dMedicamentos);
             RepositorioPessoas repositorioPessoas = new RepositorioPessoas();
             Entidade e = new();
 
             #region Objetos Test
-            Paciente p = new(e.Id, "PT",123, "123.123.123-23", "Jão da curva", DateTime.Now);
-            repositorioPessoas.registroGeral.Add(p);
-            Medicamento m = new(e.Id, "DP", "Se dor", 1, new DateTime(01 / 12 / 2000));
-            repositorioMedicamentos.estoque.Add(m);
+            Paciente p = new("Leonardo", 999, "1234", "Duarte da costa", new DateTime(1997,07,02));
+            Paciente p1 = new("Leo", 998, "1235", "Duarte da costa", new DateTime(1997,07,02));
+            Paciente p2 = new("Leandro", 997, "1236", "Duarte da costa", new DateTime(1997,07,02));
+            repositorioPessoas.RegistroPessoas.Add(p);
+            repositorioPessoas.RegistroPessoas.Add(p1);
+            repositorioPessoas.RegistroPessoas.Add(p2);
+            Medicamento m1 = new Medicamento("dipirona", "Analgésico e antipirético", 150, new DateTime(2025, 10, 01));
+            Medicamento m2 = new Medicamento("dorflex", "Relaxante muscular com analgésico", 200, new DateTime(2024, 12, 01));
+            Medicamento m3 = new Medicamento("paracetamol", "Para dor leve a moderada e febre", 300, new DateTime(2025, 08, 01));
+            Medicamento m4 = new Medicamento("ibuprofeno", "Anti-inflamatório para dores e febres", 250, new DateTime(2025, 07, 01));
+            Medicamento m5 = new Medicamento("amoxicilina", "Antibiótico de amplo espectro", 100, new DateTime(2024, 06, 01));
+            Medicamento m6 = new Medicamento("losartana", "Medicamento para hipertensão", 120, new DateTime(2026, 01, 01));
+            Medicamento m7 = new Medicamento("lasanha", "Medicamento para hipertensão", 10, new DateTime(2026, 01, 01));
+            repositorioMedicamentos.estoque.Add(m1);
+            repositorioMedicamentos.estoque.Add(m2);
+            repositorioMedicamentos.estoque.Add(m3);
+            repositorioMedicamentos.estoque.Add(m4);
+            repositorioMedicamentos.estoque.Add(m5);
+            repositorioMedicamentos.estoque.Add(m6);
+            repositorioMedicamentos.estoque.Add(m7);
+
             Requisicao requisicao = new Requisicao(e.Id);
             #endregion
 
-            InterfacePessoas uiPessoas = new InterfacePessoas(repositorioPessoas);
+            InterfacePessoas uiPessoas = new InterfacePessoas(repositorioPessoas,dPessoas);
             InterfaceMedicamentos uiMedicamentos = new InterfaceMedicamentos(repositorioMedicamentos);
             InterfaceRequisicao uiRequisicao = new InterfaceRequisicao();
 
-            Menu menu = new Menu(repositorioMedicamentos, repositorioPessoas, uiPessoas, uiMedicamentos, uiRequisicao, m, p, dPessoas, dMedicamentos, dRequisicao);
+            Menu menu = new Menu(repositorioMedicamentos, repositorioPessoas, uiPessoas, uiMedicamentos, uiRequisicao, p, dPessoas, dMedicamentos, dRequisicao);
 
             menu.MenuInicial();
         }

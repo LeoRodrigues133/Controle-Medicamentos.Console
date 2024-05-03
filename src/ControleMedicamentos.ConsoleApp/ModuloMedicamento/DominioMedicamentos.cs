@@ -1,6 +1,7 @@
 ﻿using Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface;
 using Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento;
 using Controle_de_Medicamentos_2024_ConsoleApp;
+using System.Globalization;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
 {
@@ -11,11 +12,6 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
         public RepositorioMedicamentos rMedicamentos;
 
         #region Métodos do Create
-        public void GuardarMedicamento(Medicamento medicamento)
-        {
-            rMedicamentos.estoque.Add(medicamento);
-        }  //Empurra para o estoque
-
         public bool VerificarMedicamento(string nome, int quantidade, RepositorioMedicamentos rMedicamentos, Medicamento medicamento)
         {
             Medicamento verificador = rMedicamentos.estoque.FirstOrDefault(m => m.Nome == nome);
@@ -29,14 +25,14 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
             }
             else
             {
-            VerificarQuantidade(quantidade, verificador, rMedicamentos);
+                VerificarQuantidade(quantidade, verificador, rMedicamentos);
             }
 
             return false;
         } //Adiciona quantidade se já existir
         #endregion
 
-        public void MenuSelecionarMedicamento(Medicamento Verificador)
+        public void AtualizarCampo(Medicamento Verificador)
         {
             int opcao = Program.ObterValor<int>("Selecione o campo que deseja editar:\n1 - Nome\n2 - Descrição\n3 - Validade\n0 - Sair \nDigite: ");
 
@@ -64,6 +60,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
                     break;
             }
         }
+
         #region Métodos do Update
 
         private bool EditarNome(Medicamento medicamentoEditado, string novoNome)
@@ -93,7 +90,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
 
         #endregion
 
-        #region validação
+        #region validação de quantidade
 
         public int VerificarQuantidade(int incrementarQuantidade, Medicamento medicamento, RepositorioMedicamentos repositorioMedicamentos)
         {
@@ -104,7 +101,35 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
             return medicamento.Quantidade;
         }
 
+        public Medicamento VerificarQuantidadeEstoque(Medicamento medicamento)
+        {
+            if (medicamento.Quantidade <= 20)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(medicamento.Quantidade.ToString().PadRight(6));
+                Console.ResetColor();
+            }
+            else
+                Console.Write(medicamento.Quantidade.ToString().PadRight(6));
+            return medicamento;
 
+        }
+
+        public bool RetirarMedicamento(int Solicitacao,string teste, Medicamento verificador, RepositorioMedicamentos rMedicamentos)
+        {
+            verificador = rMedicamentos.estoque.FirstOrDefault(p => p.Nome == teste);
+
+            if (verificador.Quantidade >= Solicitacao)
+            {
+                verificador.Quantidade -= Solicitacao;
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Quantidade solicitada excede o estoque!");
+                return false;
+            }
+        }
         #endregion
     }
 }

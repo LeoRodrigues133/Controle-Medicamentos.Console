@@ -1,6 +1,7 @@
 ﻿using Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface;
 using Controle_de_Medicamentos_2024_ConsoleApp.ModuloPessoa;
 using ControleMedicamentos.ConsoleApp.ModuloMedicamento;
+using System.Globalization;
 
 namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
 {
@@ -11,42 +12,38 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
         public Menu menu;
         public DominioMedicamentos dominio;
 
-        public void Adicionar(DateTime validade,Medicamento medicamento, RepositorioMedicamentos rMedicamentos)
+        public RepositorioMedicamentos(DominioMedicamentos dominio)
         {
-
-            if (Medicamento.VerificarValidade(validade))
-            {
-                estoque.Add(medicamento);
-                MenuVerificarMedicamentos(rMedicamentos);
-            }
+            this.dominio = dominio;
+        }
+        public void Adicionar(Medicamento medicamento, RepositorioMedicamentos rMedicamentos)
+        {
+            estoque.Add(medicamento);
+            MenuVerificarMedicamentos(rMedicamentos, dominio);
         } //Create
 
-        public void MenuVerificarMedicamentos(RepositorioMedicamentos rMedicamentos )
+        public void MenuVerificarMedicamentos(RepositorioMedicamentos rMedicamentos, DominioMedicamentos dominio)
         {
             Console.Clear();
 
-            foreach ( Medicamento medicamento in rMedicamentos.estoque)
+            foreach (Medicamento medicamento in rMedicamentos.estoque)
+            {
+                {
+                    Console.Write($"| {medicamento.Id}".PadRight(5) +
+                                          $"| {CultureInfo.CurrentCulture.TextInfo.ToTitleCase(medicamento.Nome)}".PadRight(19) +
+                                          $"| {medicamento.Descricao}".PadRight(45) + "|");
 
-            Console.WriteLine($"| {medicamento.Id}".PadRight(5) +
-                                        $"| {medicamento.Nome}".PadRight(19) +
-                                        $"| {medicamento.Descricao}".PadRight(30) +
-                                        $"| {medicamento.Quantidade}".PadRight(7) +
-                                        $"| {medicamento.Validade.ToShortDateString()}".PadRight(12) +
-                                        " |");
+                    dominio.VerificarQuantidadeEstoque(medicamento);
+
+                    Console.WriteLine($"| {medicamento.Validade.ToShortDateString()}".PadRight(12)+" |");
+                }
+            }
+            Console.WriteLine("Pressione para continuar...");
             Console.ReadKey();
         }
-        //public void VerificarEstoque()
-        //{
-
-        //    foreach (Medicamento medicamento in estoque)
-        //    {
-        //        MenuVerificarMedicamentos(medicamento);
-        //    }
-        //    Console.ReadKey();
-        //} // Read
-
-        public void Atualizar(int Seletor, DominioMedicamentos dominio)
+        public void AtualizarMedicamento(int Seletor, DominioMedicamentos dominio, RepositorioMedicamentos repositorioMedicamentos)
         {
+            MenuVerificarMedicamentos(repositorioMedicamentos, dominio);
 
             Medicamento Verificador = estoque.FirstOrDefault(M => M.Id == Seletor);
 
@@ -54,7 +51,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
                 Console.WriteLine("Nenhum medicamento encontrado!");
             else
             {
-                dominio.MenuSelecionarMedicamento(Verificador);
+                dominio.AtualizarCampo(Verificador);
             }
 
             //        public Medicamento(int id, string nome, string descricao, int quantidade, datetime validade)
@@ -62,9 +59,8 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
 
         public void ExcluirMedicamento(int Seletor, RepositorioMedicamentos repositorioMedicamentos)
         {
-            MenuVerificarMedicamentos(repositorioMedicamentos);
-
-            Medicamento Verificador = (Medicamento)estoque.FirstOrDefault(M => M.Id == Seletor);
+            MenuVerificarMedicamentos(repositorioMedicamentos, dominio);
+            Medicamento Verificador = estoque.FirstOrDefault(M => M.Id == Seletor);
 
             if (Verificador == null)
                 Console.WriteLine("Nenhum medicamento encontrado!");

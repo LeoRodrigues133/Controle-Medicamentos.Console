@@ -1,6 +1,8 @@
 ﻿using Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento;
 using Controle_de_Medicamentos_2024_ConsoleApp.ModuloPessoa;
+using ControleMedicamentos.ConsoleApp.ModuloMedicamento;
 using ControleMedicamentos.ConsoleApp.ModuloPessoa;
+using System.Globalization;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
 {
@@ -9,6 +11,19 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
         public RepositorioRequisicao rRequisicao;
         public RepositorioPessoas rPessoas;
         public RepositorioMedicamentos rMedicamentos;
+
+        public bool VerificarNRSUS(int NRSUS, RepositorioPessoas rPessoas, DominioRequisicao dominio)
+        {
+
+            Paciente verificador = rPessoas.RegistroPessoas.FirstOrDefault(p => p.RegistroSUS == NRSUS);
+
+            if (verificador == null)
+                return true;
+
+            Console.WriteLine("Esta carteira do SUS já esta cadastrada!");
+            Console.ReadKey();
+            return false;
+        }
         public bool BuscarMedicamento(string nomeMedicamento, RepositorioMedicamentos rMedicamentos)
         {
             Medicamento medicamentoRequisitado = rMedicamentos.estoque.FirstOrDefault(m => m.Nome == nomeMedicamento);
@@ -23,7 +38,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
 
         public bool BuscarPaciente(string nomePaciente, RepositorioPessoas rPessoas)
         {
-            Paciente requisitante = rPessoas.registroGeral.FirstOrDefault(p => p.Nome == nomePaciente);
+            Paciente requisitante = rPessoas.RegistroPessoas.FirstOrDefault(p => p.Nome == nomePaciente);
             if (requisitante == null)
             {
                 Console.WriteLine("Paciente não encontrado");
@@ -41,7 +56,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
         public bool VerificarNRSUS(int verificarNRSUS, Paciente Verificador, RepositorioPessoas rPessoas)
         {
 
-            Verificador = rPessoas.registroGeral.FirstOrDefault(RegistroSUS => RegistroSUS.RegistroSUS == verificarNRSUS);
+            Verificador = rPessoas.RegistroPessoas.FirstOrDefault(RegistroSUS => RegistroSUS.RegistroSUS == verificarNRSUS);
 
             if (Verificador == null)
             {
@@ -52,6 +67,29 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
             Console.WriteLine("NRSUS encontrado!");
 
             return true;
+        }
+        public void VerPacientes(RepositorioPessoas rPaciente)
+        {
+            foreach (Paciente paciente in rPaciente.RegistroPessoas)
+            {
+                Console.WriteLine($"| {paciente.Id}".PadRight(5) +
+                                           $"| {CultureInfo.CurrentCulture.TextInfo.ToTitleCase(paciente.Nome)}".PadRight(10) +
+                                           $"| {paciente.Cpf}".PadRight(17) +
+                                           $"| {paciente.RegistroSUS.ToString().PadRight(7)}" +
+                                            " |");
+            }
+        }
+        public void VerMedicamentos(RepositorioMedicamentos rMedicamentos, DominioMedicamentos dominio)
+        {
+            foreach (Medicamento medicamento in rMedicamentos.estoque)
+            {
+                {
+                    Console.Write($"| {medicamento.Id}".PadRight(5) +
+                                          $"| {CultureInfo.CurrentCulture.TextInfo.ToTitleCase(medicamento.Nome)}".PadRight(19) + "|");
+                    dominio.VerificarQuantidadeEstoque(medicamento);
+                    Console.WriteLine("|");
+                }
+            }
         }
         public void VerificarRequisicao(RepositorioPessoas rPessoas, RepositorioRequisicao rRequisicao)
         {

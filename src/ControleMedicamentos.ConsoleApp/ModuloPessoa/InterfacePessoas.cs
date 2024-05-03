@@ -2,6 +2,7 @@
 using Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface;
 using Controle_de_Medicamentos_2024_ConsoleApp.ModuloPessoa;
 using ControleMedicamentos.ConsoleApp.ModuloBase;
+using ControleMedicamentos.ConsoleApp.ModuloRequisição;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
 {
@@ -12,12 +13,13 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
         public RepositorioPessoas rPessoas;
         public Menu menu;
         public DominioPessoas dominio;
-
-        public InterfacePessoas(RepositorioPessoas rPessoas)
+        public DominioRequisicao dominioRequisicao;
+        public InterfacePessoas(RepositorioPessoas rPessoas, DominioPessoas dominio)
         {
+            this.dominio = dominio;
             this.rPessoas = rPessoas;
         }
-        public void MenuCadastrarPaciente(DominioPessoas dominio, Paciente id)
+        public void MenuCadastrarPaciente(DominioPessoas dominio, Paciente id, DominioRequisicao dominioRequisicao)
         {
 
             Console.Clear();
@@ -26,39 +28,45 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
 
             string nome = Program.ObterValor<string>("Digite o nome do Paciente:\n");
             string cpf = Program.ObterValor<string>("CPF:\n");
+
+            while (!dominio.VerificarCpf(cpf, rPessoas))
+                cpf = Program.ObterValor<string>("CPF:\n");
+
             string endereco = Program.ObterValor<string>("cep:\n");
             int registroSUS = Program.ObterValor<int>("SUS:\n");
+
+            while (!dominioRequisicao.VerificarNRSUS(registroSUS, rPessoas, dominioRequisicao))
+                registroSUS = Program.ObterValor<int>("SUS:\n");
+
             DateTime dataDeNascimento = Program.ObterValor<DateTime>("Digite DDNascimento: \n");
 
-            if (dominio.VerificarCpf(cpf, rPessoas))
-            {
-                Paciente novoPaciente = new(id.Id, nome, registroSUS, cpf, endereco, dataDeNascimento);
-                rPessoas.registroGeral.Add(novoPaciente);
-            }
+            Paciente novoPaciente = new(nome, registroSUS, cpf, endereco, dataDeNascimento);
+            rPessoas.CadastrarPessoa(novoPaciente, rPessoas);
+
         }
 
 
-        public void MenuAtualizarPessoas()
+        public void MenuAtualizarPessoas(int Seletor)
         {
-            int Seletor = Program.ObterValor<int>("Selecione um ID: ");
+            rPessoas.MenuVerPessoas(rPessoas);
 
             Atualizar(Seletor);
         }
         public void Atualizar(int Seletor)
         {
-            Paciente Verificador = (Paciente)rPessoas.registroGeral.FirstOrDefault(P => P.Id == Seletor);
+            Paciente Verificador = rPessoas.RegistroPessoas.FirstOrDefault(P => P.Id == Seletor);
 
             if (Verificador == null)
                 Console.WriteLine("Nenhum Paciente encontrado!");
             else
             {
-                SelecionarPaciente(Verificador);
+                MenuSelecionarPaciente(Verificador,dominio);
             }
         }
 
-        public void SelecionarPaciente(Paciente Verificador)
+        public void MenuSelecionarPaciente(Paciente Verificador, DominioPessoas dominio)
         {
-            int opcao = Program.ObterValor<int>("Selecione o campo que deseja editar:\n1 - Nome\n2 - Descrição\n3 - Validade\n0 - Sair \nDigite: ");
+            int opcao = Program.ObterValor<int>("Selecione o campo que deseja editar:\n1 - Nome\n2 - Endereço\n3 - Data de nascimento\n0 - Sair \nDigite: ");
 
             switch (opcao)
             {
@@ -86,9 +94,8 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
         }
 
 
-        public void MenuExluirPessoa()
+        public void MenuExluirPessoa(int Seletor)
         {
-            int Seletor = Program.ObterValor<int>("Digite um ID: ");
 
             dominio.Excluir(Seletor);
         }

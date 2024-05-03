@@ -8,10 +8,10 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
         public string Descricao { get; set; }
         public int Quantidade { get; set; }
         public DateTime Validade { get; set; }
-
-        public Medicamento(int id, string nome, string descricao, int quantidade, DateTime validade) : base()
+        public static int idMedicamento = 1;
+        public Medicamento(string nome, string descricao, int quantidade, DateTime validade) : base()
         {
-
+            Id = idMedicamento++;
             Nome = nome;
             Descricao = descricao;
             Quantidade = quantidade;
@@ -25,6 +25,8 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
             if (validade < hoje)
             {
                 Console.WriteLine("Você está cadastrando um medicamento vencido!");
+                Console.WriteLine("Pressione para continuar...");
+                Console.ReadKey();
                 return false;
             }
             else
