@@ -17,6 +17,19 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
         {
             Console.WriteLine("Receber requisição de medicamento");
 
+            VerificarRetirada(dRequisicao, repositorioMedicamentos, dMedicamentos, medicamento);
+
+            dRequisicao.VerPacientes(rPessoas);
+            int registroSUS = Program.ObterValor<int>("Numero de registro no SUS:\n\n");
+
+            if (dRequisicao.VerificarNRSUS(registroSUS, paciente, rPessoas))
+            {
+                Requisicao requisicao = new Requisicao(registroSUS);
+            }
+        }
+
+        private static void VerificarRetirada(DominioRequisicao dRequisicao, RepositorioMedicamentos repositorioMedicamentos, DominioMedicamentos dMedicamentos, Medicamento medicamento)
+        {
             dRequisicao.VerMedicamentos(repositorioMedicamentos, dMedicamentos);
             string nomeMedicamento = Program.ObterValor<string>("Qual o nome do medicamento requisitado?\n");
             while (!dRequisicao.BuscarMedicamento(nomeMedicamento, repositorioMedicamentos))
@@ -26,14 +39,6 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
             while (!dMedicamentos.RetirarMedicamento(quantidadeSolicitada, nomeMedicamento, medicamento, repositorioMedicamentos))
             {
                 quantidadeSolicitada = Program.ObterValor<int>("Quantidade solicitada:\n\n");
-            }
-
-            dRequisicao.VerPacientes(rPessoas);
-            int registroSUS = Program.ObterValor<int>("Numero de registro no SUS:\n\n");
-
-            if (dRequisicao.VerificarNRSUS(registroSUS, paciente, rPessoas))
-            {
-                Requisicao requisicao = new Requisicao(registroSUS);
             }
         }
     }
