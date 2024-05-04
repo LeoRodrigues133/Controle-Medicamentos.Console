@@ -9,13 +9,18 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
     {
         public int IdRequisicao;
         public static int idRequisicao = 1;
+        public string nome { get; }
+        public string medicamento { get; }
+        public int NRSUS { get; }
+        public int retirada { get; }
+
         public Requisicao(string nome, int NRSUS, string medicamento, int retirada) : base()
         {
-            retirada = retirada;
-            nome = nome;
-            medicamento = medicamento;
-            NRSUS = NRSUS;
             Id = idRequisicao++;
+            this.nome = nome;
+            this.NRSUS = NRSUS;
+            this.medicamento = medicamento;
+            this.retirada = retirada;
 
         }
     }

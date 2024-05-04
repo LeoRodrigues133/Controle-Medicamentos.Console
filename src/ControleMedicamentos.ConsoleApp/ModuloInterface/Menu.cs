@@ -3,6 +3,7 @@ using Controle_de_Medicamentos_2024_ConsoleApp.ModuloPessoa;
 using ControleMedicamentos.ConsoleApp.ModuloMedicamento;
 using ControleMedicamentos.ConsoleApp.ModuloPessoa;
 using ControleMedicamentos.ConsoleApp.ModuloRequisição;
+using ControleMedicamentos.ConsoleApp.ModuloRequisicao;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
@@ -25,7 +26,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
         public DominioMedicamentos dMedicamentos;
         public DominioRequisicao dRequisicao;
 
-        public Menu(RepositorioMedicamentos estoque, RepositorioPessoas registro, RepositorioRequisicao rRequisicao, InterfacePessoas uiPessoas, InterfaceMedicamentos uiMedicamentos, InterfaceRequisicao uiRequisicao, Paciente pTest, DominioPessoas dPessoas, DominioMedicamentos dMedicamentos, DominioRequisicao dRequisicao)
+        public Menu(RepositorioMedicamentos estoque, RepositorioPessoas registro, RepositorioRequisicao rRequisicao, InterfacePessoas uiPessoas, InterfaceMedicamentos uiMedicamentos, InterfaceRequisicao uiRequisicao, Paciente pTest, Medicamento mTest, DominioPessoas dPessoas, DominioMedicamentos dMedicamentos, DominioRequisicao dRequisicao)
         {
             this.estoqueMedicamentos = estoque;
             this.registroPessoas = registro;
@@ -34,6 +35,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
             this.uiMedicamentos = uiMedicamentos;
             this.uiRequisicao = uiRequisicao;
             this.paciente = pTest;
+            this.medicamento = mTest;
             this.dPessoas = dPessoas;
             this.dMedicamentos = dMedicamentos;
             this.dRequisicao = dRequisicao;
@@ -159,7 +161,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 switch (opcao)
                 {
                     case 1:
-
+                        uiRequisicao.ProcessarRequisicao(dRequisicao, dMedicamentos, rRequisicao, registroPessoas);
                         break;
                     case 0:
                         MenuInicial();
@@ -184,11 +186,13 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 switch (opcao)
                 {
                     case 1:
-                        rRequisicao.VerRequisição(rRequisicao, medicamento,paciente);
+                        rRequisicao.VerRequisicao(rRequisicao, registroPessoas, estoqueMedicamentos, paciente, medicamento, dRequisicao);
                         break;
                     case 2: break;
                     case 3: break;
-                    case 0: break;
+                    case 0:
+                        MenuInicial();
+                        break;
                 }
             }
         }

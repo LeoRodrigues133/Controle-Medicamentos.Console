@@ -92,24 +92,20 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
                 }
             }
         }
-        public void VerificarRequisicao(RepositorioPessoas rPessoas, RepositorioRequisicao rRequisicao)
+        public void Cabecalho()
         {
-            Console.Clear();
-
-            foreach (Requisicao registro in rRequisicao.registroRequisicao)
-            {
-                Console.WriteLine($"| {rRequisicao.requisicao.Id}".PadRight(5) +
-                                             $"| {rPessoas.paciente.Nome}".PadRight(10) +
-                                             $"| {rPessoas.paciente.Cpf}".PadRight(17) +
-                                             $"| {rPessoas.paciente.Endereco}".PadRight(12) +
-                                             $"| {rPessoas.paciente.RegistroSUS.ToString().PadRight(7)}" +
-                                             $"| {rPessoas.paciente.DataDeNascimento.ToShortDateString()}".PadRight(10) +
-                                             " |");
-            }
-            Console.ReadKey();
+            Console.WriteLine(" ID".PadRight(5) +
+                               "| Nome".PadRight(19) +
+                               "| Registro SUS".PadRight(12) +
+                               "| Medicamento".PadRight(20) +
+                               "| Qtd".PadRight(11) + "|");
+            Rodape();
         }
+        public void Rodape()
+        {
+            Console.WriteLine(new string('-', 70));
 
-      
+        }
 
     }
 }

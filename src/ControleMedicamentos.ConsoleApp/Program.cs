@@ -5,6 +5,7 @@ using ControleMedicamentos.ConsoleApp.ModuloBase;
 using ControleMedicamentos.ConsoleApp.ModuloMedicamento;
 using ControleMedicamentos.ConsoleApp.ModuloPessoa;
 using ControleMedicamentos.ConsoleApp.ModuloRequisição;
+using ControleMedicamentos.ConsoleApp.ModuloRequisicao;
 
 namespace Controle_de_Medicamentos_2024_ConsoleApp
 {
@@ -23,12 +24,12 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp
             Entidade e = new();
 
             #region Objetos Test
-            Paciente p = new("Leonardo", 999, "1234", "Duarte da costa", new DateTime(1997, 07, 02));
+            Paciente p3 = new("Leonardo", 999, "1234", "Duarte da costa", new DateTime(1997, 07, 02));
             Paciente p1 = new("Leo", 998, "1235", "Duarte da costa", new DateTime(1997, 07, 02));
             Paciente p2 = new("Leandro", 997, "1236", "Duarte da costa", new DateTime(1997, 07, 02));
-            repositorioPessoas.RegistroPessoas.Add(p);
             repositorioPessoas.RegistroPessoas.Add(p1);
             repositorioPessoas.RegistroPessoas.Add(p2);
+            repositorioPessoas.RegistroPessoas.Add(p3);
             Medicamento m1 = new Medicamento("dipirona", "Analgésico e antipirético", 150, new DateTime(2025, 10, 01));
             Medicamento m2 = new Medicamento("dorflex", "Relaxante muscular com analgésico", 200, new DateTime(2024, 12, 01));
             Medicamento m3 = new Medicamento("paracetamol", "Para dor leve a moderada e febre", 300, new DateTime(2025, 08, 01));
@@ -50,9 +51,9 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp
 
             InterfacePessoas uiPessoas = new InterfacePessoas(repositorioPessoas, dPessoas);
             InterfaceMedicamentos uiMedicamentos = new InterfaceMedicamentos(repositorioMedicamentos);
-            InterfaceRequisicao uiRequisicao = new InterfaceRequisicao();
+            InterfaceRequisicao uiRequisicao = new InterfaceRequisicao(repositorioMedicamentos, repositorioPessoas, repositorioRequisicao);
 
-            Menu menu = new Menu(repositorioMedicamentos, repositorioPessoas, repositorioRequisicao, uiPessoas, uiMedicamentos, uiRequisicao, p, dPessoas, dMedicamentos, dRequisicao);
+            Menu menu = new Menu(repositorioMedicamentos, repositorioPessoas, repositorioRequisicao, uiPessoas, uiMedicamentos, uiRequisicao, p1, m1, dPessoas, dMedicamentos, dRequisicao);
 
             menu.MenuInicial();
         }

@@ -8,6 +8,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
         public string Descricao { get; set; }
         public int Quantidade { get; set; }
         public DateTime Validade { get; set; }
+
         public static int idMedicamento = 1;
         public Medicamento(string nome, string descricao, int quantidade, DateTime validade) : base()
         {
