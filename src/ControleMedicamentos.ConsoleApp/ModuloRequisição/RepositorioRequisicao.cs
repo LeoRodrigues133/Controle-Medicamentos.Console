@@ -14,7 +14,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
         public Medicamento medicamento;
         public DominioRequisicao dRequisicao;
         public RepositorioRequisicao repositorioRequisicao;
-        public void GuardarRequisicao(RepositorioPessoas rPessoas, RepositorioRequisicao rRequisicao, RepositorioMedicamentos rMedicamentos, Requisicao requisicao)
+        public void GuardarRequisicao(RepositorioPessoas rPessoas, RepositorioRequisicao rRequisicao, RepositorioMedicamentos rMedicamentos, Requisicao requisicao, DominioRequisicao dRequisicao)
         {
             registroRequisicao.Add(requisicao);
             VerRequisicao(rRequisicao, rPessoas, rMedicamentos, paciente, medicamento, dRequisicao);

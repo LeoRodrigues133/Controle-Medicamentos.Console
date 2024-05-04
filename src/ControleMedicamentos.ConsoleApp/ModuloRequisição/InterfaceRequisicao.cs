@@ -70,7 +70,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicao
         private void CriarRequisicao(string nome, int registroSUS, string medicamento, int quantidade, RepositorioRequisicao rRequisicao, RepositorioPessoas rPessoas, DominioRequisicao dRequisicao)
         {
             Requisicao novaRequisicao = new Requisicao(nome, registroSUS, medicamento, quantidade);
-            rRequisicao.GuardarRequisicao(rPessoas, rRequisicao,rMedicamentos, novaRequisicao);
+            rRequisicao.GuardarRequisicao(rPessoas, rRequisicao,rMedicamentos, novaRequisicao,dRequisicao);
         }
     }
 }
