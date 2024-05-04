@@ -31,7 +31,6 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
                                             $"| {registro.retirada}".PadRight(11) + "|");
                 dRequisicao.Rodape();
             }
-            Console.ReadKey();
         }
     }
 }

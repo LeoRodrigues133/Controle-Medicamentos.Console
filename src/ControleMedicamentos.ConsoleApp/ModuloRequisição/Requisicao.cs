@@ -12,7 +12,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
         public string nome { get; }
         public string medicamento { get; }
         public int NRSUS { get; }
-        public int retirada { get; }
+        public int retirada { get; set; }
 
         public Requisicao(string nome, int NRSUS, string medicamento, int retirada) : base()
         {

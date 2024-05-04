@@ -1,7 +1,9 @@
-﻿using Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento;
+﻿using Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface;
+using Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento;
 using Controle_de_Medicamentos_2024_ConsoleApp.ModuloPessoa;
 using ControleMedicamentos.ConsoleApp.ModuloMedicamento;
 using ControleMedicamentos.ConsoleApp.ModuloPessoa;
+using ControleMedicamentos.ConsoleApp.ModuloRequisicao;
 using System.Globalization;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
@@ -13,7 +15,8 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
         public RepositorioMedicamentos rMedicamentos;
         public Paciente Paciente;
         public Medicamento medicamento;
-
+        public InterfaceRequisicao uiRequisicao;
+        public Menu menu;
         public bool VerificarNRSUS(int NRSUS, RepositorioPessoas rPessoas, DominioRequisicao dominio)
         {
 
@@ -37,10 +40,10 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
             else
                 return true;
         }
-        public bool VerificarNRSUS(int verificarNRSUS, Paciente Verificador, RepositorioPessoas rPessoas)
+        public bool VerificarNRSUS(int verificarNRSUS, RepositorioPessoas rPessoas)
         {
 
-            Verificador = rPessoas.RegistroPessoas.FirstOrDefault(RegistroSUS => RegistroSUS.RegistroSUS == verificarNRSUS);
+            Paciente Verificador = rPessoas.RegistroPessoas.FirstOrDefault(RegistroSUS => RegistroSUS.RegistroSUS == verificarNRSUS);
 
             if (Verificador == null)
             {
@@ -52,8 +55,6 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
 
             return true;
         }
-
-
         public bool BuscarPaciente(string nomePaciente, RepositorioPessoas rPessoas)
         {
             Paciente requisitante = rPessoas.RegistroPessoas.FirstOrDefault(p => p.Nome == nomePaciente);
@@ -64,11 +65,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
             }
             else
                 return true;
-        }// não utilizado.
-        public void AdicionarRegistro(Requisicao requisicao)
-        {
-            rRequisicao.registroRequisicao.Add(requisicao);
-        }
+        }// não utilizado. Mas util para mais tarde;
         public void VerPacientes(RepositorioPessoas rPaciente)
         {
             foreach (Paciente paciente in rPaciente.RegistroPessoas)
@@ -91,6 +88,44 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
                     Console.WriteLine("|");
                 }
             }
+        }
+        public bool AceitarRequisicao(int IdBuscador, RepositorioPessoas registroPessoas, RepositorioMedicamentos estoqueMedicamentos, Paciente paciente, DominioRequisicao dRequisicao, RepositorioRequisicao rRequisicao)
+        {
+
+            Requisicao verificador = rRequisicao.registroRequisicao.FirstOrDefault(r => r.Id == IdBuscador);
+
+            if (verificador == null)
+            {
+                Console.WriteLine("Nenhuma requisição encontada!");
+                return false;
+            }
+            Medicamento medicamento = estoqueMedicamentos.estoque.FirstOrDefault(m => m.Nome == verificador.medicamento);
+
+            if (ObterQuantidadeSolicitada(medicamento, verificador, verificador.retirada) == 0)
+            {
+                Console.WriteLine("Quantidade solicitada não disponível no estoque.");
+                return false;
+            }
+            else
+            {
+                rRequisicao.registroRequisicao.Remove(verificador);
+                return true;
+            }
+
+
+        }
+
+        public int ObterQuantidadeSolicitada(Medicamento medicamento, Requisicao requisicao, int quantidade)
+        {
+
+            if (quantidade > medicamento.Quantidade)
+            {
+                return 0;
+            }
+            else
+                medicamento.Quantidade -= quantidade;
+
+            return quantidade;
         }
         public void Cabecalho()
         {

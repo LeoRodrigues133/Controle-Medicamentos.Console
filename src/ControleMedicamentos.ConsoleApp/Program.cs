@@ -45,8 +45,8 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp
             repositorioMedicamentos.estoque.Add(m6);
             repositorioMedicamentos.estoque.Add(m7);
 
-            Requisicao requisicao = new Requisicao("Paciente", 151515, "Doril", 15);
-            repositorioRequisicao.registroRequisicao.Add(requisicao);
+            //Requisicao requisicao = new Requisicao("Leonardo", 999, "Dipirona", 100);
+            //repositorioRequisicao.registroRequisicao.Add(requisicao);
             #endregion
 
             InterfacePessoas uiPessoas = new InterfacePessoas(repositorioPessoas, dPessoas);

@@ -54,8 +54,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
         }
         public void Atualizar(int Seletor)
         {
-            Paciente Verificador = rPessoas.RegistroPessoas
-                .FirstOrDefault(P => P.Id == Seletor);
+            Paciente Verificador = rPessoas.RegistroPessoas.FirstOrDefault(P => P.Id == Seletor);
 
             if (Verificador == null)
                 Console.WriteLine("Nenhum Paciente encontrado!");
