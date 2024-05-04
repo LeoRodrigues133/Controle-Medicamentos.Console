@@ -180,7 +180,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
             Console.WriteLine("Menu de atendimento ao paciente!");
             while (true)
             {
-                Console.WriteLine("Escolha uma opção:\n1 - Ver histórico de requisições\n2 - Gestão de Requisições\n3 - Recusar requisição\n0 - Sair\n\n");
+                Console.WriteLine("Escolha uma opção:\n1 - Ver requisições\n2 - Gestão de Requisições\n0 - Sair\n\n");
                 int opcao = Program.ObterValor<int>("Digite:");
 
                 switch (opcao)
@@ -189,9 +189,8 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                         rRequisicao.VerRequisicao(rRequisicao, registroPessoas, estoqueMedicamentos, paciente, medicamento, dRequisicao);
                         break;
                     case 2:
-                        uiRequisicao.MenuGerenciamentoRequisicoes(registroPessoas, estoqueMedicamentos, paciente, medicamento, dRequisicao, rRequisicao,requisicao);
+                        uiRequisicao.MenuGerenciamentoRequisicoes(registroPessoas, estoqueMedicamentos, paciente, medicamento, dRequisicao, rRequisicao, requisicao);
                         break;
-                    case 3: break;
                     case 0:
                         MenuInicial();
                         break;
