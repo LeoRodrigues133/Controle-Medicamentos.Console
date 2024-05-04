@@ -19,12 +19,13 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp
             DominioRequisicao dRequisicao = new DominioRequisicao();
             RepositorioMedicamentos repositorioMedicamentos = new RepositorioMedicamentos(dMedicamentos);
             RepositorioPessoas repositorioPessoas = new RepositorioPessoas();
+            RepositorioRequisicao repositorioRequisicao = new RepositorioRequisicao();
             Entidade e = new();
 
             #region Objetos Test
-            Paciente p = new("Leonardo", 999, "1234", "Duarte da costa", new DateTime(1997,07,02));
-            Paciente p1 = new("Leo", 998, "1235", "Duarte da costa", new DateTime(1997,07,02));
-            Paciente p2 = new("Leandro", 997, "1236", "Duarte da costa", new DateTime(1997,07,02));
+            Paciente p = new("Leonardo", 999, "1234", "Duarte da costa", new DateTime(1997, 07, 02));
+            Paciente p1 = new("Leo", 998, "1235", "Duarte da costa", new DateTime(1997, 07, 02));
+            Paciente p2 = new("Leandro", 997, "1236", "Duarte da costa", new DateTime(1997, 07, 02));
             repositorioPessoas.RegistroPessoas.Add(p);
             repositorioPessoas.RegistroPessoas.Add(p1);
             repositorioPessoas.RegistroPessoas.Add(p2);
@@ -43,14 +44,15 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp
             repositorioMedicamentos.estoque.Add(m6);
             repositorioMedicamentos.estoque.Add(m7);
 
-            Requisicao requisicao = new Requisicao(e.Id);
+            Requisicao requisicao = new Requisicao("Paciente", 151515, "Doril", 15);
+            repositorioRequisicao.registroRequisicao.Add(requisicao);
             #endregion
 
-            InterfacePessoas uiPessoas = new InterfacePessoas(repositorioPessoas,dPessoas);
+            InterfacePessoas uiPessoas = new InterfacePessoas(repositorioPessoas, dPessoas);
             InterfaceMedicamentos uiMedicamentos = new InterfaceMedicamentos(repositorioMedicamentos);
             InterfaceRequisicao uiRequisicao = new InterfaceRequisicao();
 
-            Menu menu = new Menu(repositorioMedicamentos, repositorioPessoas, uiPessoas, uiMedicamentos, uiRequisicao, p, dPessoas, dMedicamentos, dRequisicao);
+            Menu menu = new Menu(repositorioMedicamentos, repositorioPessoas, repositorioRequisicao, uiPessoas, uiMedicamentos, uiRequisicao, p, dPessoas, dMedicamentos, dRequisicao);
 
             menu.MenuInicial();
         }

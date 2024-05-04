@@ -48,19 +48,20 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
 
         public void MenuAtualizarPessoas(int Seletor)
         {
-            rPessoas.MenuVerPessoas(rPessoas);
+            rPessoas.MenuVerPessoas(rPessoas, dominio);
 
             Atualizar(Seletor);
         }
         public void Atualizar(int Seletor)
         {
-            Paciente Verificador = rPessoas.RegistroPessoas.FirstOrDefault(P => P.Id == Seletor);
+            Paciente Verificador = rPessoas.RegistroPessoas
+                .FirstOrDefault(P => P.Id == Seletor);
 
             if (Verificador == null)
                 Console.WriteLine("Nenhum Paciente encontrado!");
             else
             {
-                MenuSelecionarPaciente(Verificador,dominio);
+                MenuSelecionarPaciente(Verificador, dominio);
             }
         }
 
@@ -99,8 +100,6 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
 
             dominio.Excluir(Seletor);
         }
-
-
 
     }
 }

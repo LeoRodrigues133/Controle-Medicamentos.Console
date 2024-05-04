@@ -20,21 +20,22 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
         public void CadastrarPessoa(Paciente pessoa, RepositorioPessoas rPessoas) // Create
         {
             RegistroPessoas.Add(pessoa);
-            MenuVerPessoas(rPessoas);
+            MenuVerPessoas(rPessoas, dominio);
         }
-        public void MenuVerPessoas(RepositorioPessoas rPessoas)
+        public void MenuVerPessoas(RepositorioPessoas rPessoas, DominioPessoas dPessoas)
         {
             Console.Clear();
-
+            dPessoas.Cabecalho();
             foreach (Paciente paciente in rPessoas.RegistroPessoas)
             {
                 Console.WriteLine($"| {paciente.Id}".PadRight(5) +
-                                             $"| {CultureInfo.CurrentCulture.TextInfo.ToTitleCase(paciente.Nome)}".PadRight(10) +
+                                             $"| {CultureInfo.CurrentCulture.TextInfo.ToTitleCase(paciente.Nome)}".PadRight(20) +
                                              $"| {paciente.Cpf}".PadRight(17) +
-                                             $"| {paciente.Endereco}".PadRight(12) +
-                                             $"| {paciente.RegistroSUS.ToString().PadRight(7)}" +
-                                             $"| {paciente.DataDeNascimento.ToShortDateString()}".PadRight(10) +
+                                             $"| {paciente.Endereco}".PadRight(15) +
+                                             $"| {paciente.RegistroSUS.ToString().PadRight(12)}" +
+                                             $"| {paciente.DataDeNascimento.ToShortDateString()}".PadRight(20) +
                                               " |");
+                dPessoas.Rodape();
             }
             Console.WriteLine("Pressione para continuar...");
             Console.ReadKey();

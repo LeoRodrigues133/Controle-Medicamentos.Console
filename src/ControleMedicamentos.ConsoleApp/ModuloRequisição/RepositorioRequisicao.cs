@@ -10,12 +10,24 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
         public List<Requisicao> registroRequisicao = new List<Requisicao>();
         public Requisicao requisicao;
         public Paciente paciente;
+        public Medicamento medicamento;
         public DominioRequisicao dRequisicao;
-        public void GuardarRequisicao(RepositorioPessoas rPessoas, RepositorioRequisicao rRequisicao)
+        public RepositorioRequisicao repositorioRequisicao;
+        public void GuardarRequisicao(RepositorioPessoas rPessoas, RepositorioRequisicao rRequisicao, Requisicao requisicao)
         {
             registroRequisicao.Add(requisicao);
             dRequisicao.VerificarRequisicao(rPessoas, rRequisicao);
         }
-
+        public void VerRequisição(RepositorioRequisicao rRequisicao, Medicamento medicamento, Paciente paciente)
+        {
+            foreach (Requisicao registro in rRequisicao.registroRequisicao)
+            {
+                Console.Write($"{registro.IdRequisicao} " +
+                                            $"| {paciente.Nome}" +
+                                            $"| {paciente.RegistroSUS}" +
+                                            $"| {medicamento.Nome}");
+            }
+            Console.ReadKey();
+        }
     }
 }

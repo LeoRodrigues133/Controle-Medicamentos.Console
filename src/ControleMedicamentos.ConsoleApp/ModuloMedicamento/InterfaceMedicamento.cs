@@ -39,7 +39,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
 
         public void MenuAtualizarMedicamento(int Seletor, DominioMedicamentos dMedicamentos)
         {
-            rMedicamentos.MenuVerificarMedicamentos(rMedicamentos, dMedicamentos);
+            rMedicamentos.MostrarTodoEstoque(rMedicamentos, dMedicamentos);
 
             rMedicamentos.AtualizarMedicamento(Seletor, dMedicamentos, rMedicamentos);
         }

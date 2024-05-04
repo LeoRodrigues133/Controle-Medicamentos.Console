@@ -10,35 +10,31 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
     {
         public RepositorioMedicamentos repositorioMedicamentos;
         public DominioRequisicao dRequisicao;
-        public Paciente Paciente;
+        public Paciente paciente;
         public RepositorioPessoas rPessoas;
-
-        public void GerarRequisicao(DominioRequisicao dRequisicao, Paciente paciente, RepositorioPessoas rPessoas, RepositorioMedicamentos repositorioMedicamentos, DominioMedicamentos dMedicamentos, Medicamento medicamento)
+        public Medicamento medicamento;
+        public void GerarRequisicao(DominioRequisicao dRequisicao, RepositorioPessoas rPessoas, RepositorioMedicamentos repositorioMedicamentos, RepositorioRequisicao rRequisicao, DominioMedicamentos dMedicamentos)
         {
             Console.WriteLine("Receber requisição de medicamento");
 
-            VerificarRetirada(dRequisicao, repositorioMedicamentos, dMedicamentos, medicamento);
 
-            dRequisicao.VerPacientes(rPessoas);
-            int registroSUS = Program.ObterValor<int>("Numero de registro no SUS:\n\n");
-
-            if (dRequisicao.VerificarNRSUS(registroSUS, paciente, rPessoas))
-            {
-                Requisicao requisicao = new Requisicao(registroSUS);
-            }
-        }
-
-        private static void VerificarRetirada(DominioRequisicao dRequisicao, RepositorioMedicamentos repositorioMedicamentos, DominioMedicamentos dMedicamentos, Medicamento medicamento)
-        {
             dRequisicao.VerMedicamentos(repositorioMedicamentos, dMedicamentos);
             string nomeMedicamento = Program.ObterValor<string>("Qual o nome do medicamento requisitado?\n");
             while (!dRequisicao.BuscarMedicamento(nomeMedicamento, repositorioMedicamentos))
+            {
                 nomeMedicamento = Program.ObterValor<string>("Qual o nome do medicamento requisitado?\n");
 
-            int quantidadeSolicitada = Program.ObterValor<int>("Quantidade solicitada:\n\n");
-            while (!dMedicamentos.RetirarMedicamento(quantidadeSolicitada, nomeMedicamento, medicamento, repositorioMedicamentos))
-            {
-                quantidadeSolicitada = Program.ObterValor<int>("Quantidade solicitada:\n\n");
+                int quantidadeSolicitada = Program.ObterValor<int>("Quantidade solicitada:\n\n");
+                while (!dMedicamentos.RetirarMedicamento(quantidadeSolicitada, nomeMedicamento, medicamento, repositorioMedicamentos))
+                    quantidadeSolicitada = Program.ObterValor<int>("Quantidade solicitada:\n\n");
+
+                dRequisicao.VerPacientes(rPessoas);
+                int registroSUS = Program.ObterValor<int>("Numero de registro no SUS:\n\n");
+                while (!dRequisicao.VerificarNRSUS(registroSUS, paciente, rPessoas))
+                    registroSUS = Program.ObterValor<int>("Numero de registro no SUS:\n\n");
+
+                Requisicao novaRequisicao = new Requisicao(paciente.Nome, paciente.RegistroSUS, nomeMedicamento, quantidadeSolicitada);
+                rRequisicao.GuardarRequisicao(rPessoas, rRequisicao, novaRequisicao);
             }
         }
     }

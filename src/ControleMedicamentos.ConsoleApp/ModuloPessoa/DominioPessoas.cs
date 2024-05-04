@@ -17,11 +17,11 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
             Paciente verificador = rPessoas.RegistroPessoas.FirstOrDefault(p => p.Cpf == cpf);
 
             if (verificador == null)
-            return true;
+                return true;
 
-                Console.WriteLine("Esta Pessoa já esta cadastrada!");
-                Console.ReadKey();
-                return false;
+            Console.WriteLine("Esta Pessoa já esta cadastrada!");
+            Console.ReadKey();
+            return false;
         }
 
         public bool EditarNome(Paciente pacienteEditado, string novoNome)
@@ -65,5 +65,21 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
         }
 
 
+        public void Cabecalho()
+        {
+            Console.WriteLine("| ID".PadRight(5) +
+                               "| Nome".PadRight(20) +
+                               "| CPF".PadRight(17) +
+                               "| Endereço".PadRight(17) +
+                               "| Registro SUS".PadRight(12) +
+                               "| Data de Nascimento".PadRight(20) +
+                               " |");
+            Rodape();
+        }
+        public void Rodape()
+        {
+            Console.WriteLine(new string('-', 95));
+
+        }
     }
 }

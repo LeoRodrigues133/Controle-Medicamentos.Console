@@ -11,6 +11,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
     {
         public RepositorioMedicamentos estoqueMedicamentos;
         public RepositorioPessoas registroPessoas;
+        public RepositorioRequisicao rRequisicao;
         public Requisicao requisicao;
 
         public InterfacePessoas uiPessoas;
@@ -18,20 +19,21 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
         public InterfaceRequisicao uiRequisicao;
 
         public Medicamento medicamento;
-        public Paciente pTest;
+        public Paciente paciente;
 
         public DominioPessoas dPessoas;
         public DominioMedicamentos dMedicamentos;
         public DominioRequisicao dRequisicao;
 
-        public Menu(RepositorioMedicamentos estoque, RepositorioPessoas registro, InterfacePessoas uiPessoas, InterfaceMedicamentos uiMedicamentos, InterfaceRequisicao uiRequisicao, Paciente pTest, DominioPessoas dPessoas, DominioMedicamentos dMedicamentos, DominioRequisicao dRequisicao)
+        public Menu(RepositorioMedicamentos estoque, RepositorioPessoas registro, RepositorioRequisicao rRequisicao, InterfacePessoas uiPessoas, InterfaceMedicamentos uiMedicamentos, InterfaceRequisicao uiRequisicao, Paciente pTest, DominioPessoas dPessoas, DominioMedicamentos dMedicamentos, DominioRequisicao dRequisicao)
         {
             this.estoqueMedicamentos = estoque;
             this.registroPessoas = registro;
             this.uiPessoas = uiPessoas;
+            this.rRequisicao = rRequisicao;
             this.uiMedicamentos = uiMedicamentos;
             this.uiRequisicao = uiRequisicao;
-            this.pTest = pTest;
+            this.paciente = pTest;
             this.dPessoas = dPessoas;
             this.dMedicamentos = dMedicamentos;
             this.dRequisicao = dRequisicao;
@@ -41,7 +43,8 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
         {
             while (true)
             {
-                Console.WriteLine("Escolha uma opção: \n1 - Cadastrar Medicamentos\n2 - Cadastrar Pessoas\n3 - Requisição de Medicamentos\n0 - Sair\n\n");
+                Console.WriteLine("MENU INICIAL");
+                Console.WriteLine("Escolha uma opção: \n1 - Cadastrar Medicamentos\n2 - Cadastrar Pessoas\n3 - Menu de Paciente **(Usar para fazer requisição no balcão)**\n4 - Menu de Funcionário **(Usar para administrar requisições)**\n0 - Sair\n\n");
 
                 int opcao = Program.ObterValor<int>("Digite:\n");
 
@@ -55,6 +58,9 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                         break;
                     case 3:
                         MenuRequisicao(uiRequisicao);
+                        break;
+                    case 4:
+                        MenuAtendimento();
                         break;
                     case 0:
                         Environment.Exit(0);
@@ -80,7 +86,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                         uiMedicamentos.MenuAdicionarMedicamentos(dMedicamentos, medicamento, estoqueMedicamentos);
                         break;
                     case 2:
-                        estoqueMedicamentos.MenuVerificarMedicamentos(estoqueMedicamentos, dMedicamentos);
+                        MenuEstoque();
                         break;
                     case 3:
                         Seletor = Program.ObterValor<int>("Selecione um ID: ");
@@ -115,10 +121,10 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 switch (opcao)
                 {
                     case 1:
-                        uiPessoas.MenuCadastrarPaciente(dPessoas, pTest, dRequisicao);
+                        uiPessoas.MenuCadastrarPaciente(dPessoas, paciente, dRequisicao);
                         break;
                     case 2:
-                        registroPessoas.MenuVerPessoas(registroPessoas);
+                        registroPessoas.MenuVerPessoas(registroPessoas, dPessoas);
                         break;
                     case 3:
                         Seletor = Program.ObterValor<int>("Selecione o ID que deseja atualizar: ");
@@ -153,10 +159,61 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 switch (opcao)
                 {
                     case 1:
-                        uiRequisicao.GerarRequisicao(dRequisicao, pTest, registroPessoas, estoqueMedicamentos, dMedicamentos, medicamento);
+
                         break;
                     case 0:
                         MenuInicial();
+
+                        Console.WriteLine("Saindo...");
+                        break;
+                    default:
+                        Console.WriteLine("Opção inválida!");
+                        break;
+                }
+            }
+        }
+
+        public void MenuAtendimento()
+        {
+            Console.WriteLine("Menu de atendimento ao paciente!");
+            while (true)
+            {
+                Console.WriteLine("Escolha uma opção:\n1 - Ver histórico de requisições\n2 - Aceitar requisição\n3 - Recusar requisição\n0 - Sair\n\n");
+                int opcao = Program.ObterValor<int>("Digite:");
+
+                switch (opcao)
+                {
+                    case 1:
+                        rRequisicao.VerRequisição(rRequisicao, medicamento,paciente);
+                        break;
+                    case 2: break;
+                    case 3: break;
+                    case 0: break;
+                }
+            }
+        }
+        public void MenuEstoque()
+        {
+            Console.WriteLine("Menu de Gerenciamento do estoque");
+            while (true)
+            {
+                Console.WriteLine("Escolha uma opção: \n1 - Verificar estoque\n2 - Verificar quantidade crítica\n3 - Verificar medicamentos em falta\n0 - Sair\n\n");
+
+                int opcao = Program.ObterValor<int>("Digite:\n");
+
+                switch (opcao)
+                {
+                    case 1:
+                        estoqueMedicamentos.MostrarTodoEstoque(estoqueMedicamentos, dMedicamentos);
+                        break;
+                    case 2:
+                        estoqueMedicamentos.MostrarEstoqueCritico(estoqueMedicamentos, dMedicamentos);
+                        break;
+                    case 3:
+                        estoqueMedicamentos.MostrarFaltaEstoque(estoqueMedicamentos, dMedicamentos);
+                        break;
+                    case 0:
+                        MenuMedicamentos();
 
                         Console.WriteLine("Saindo...");
                         break;

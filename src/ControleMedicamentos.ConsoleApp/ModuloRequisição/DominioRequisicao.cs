@@ -11,6 +11,8 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
         public RepositorioRequisicao rRequisicao;
         public RepositorioPessoas rPessoas;
         public RepositorioMedicamentos rMedicamentos;
+        public Paciente Paciente;
+        public Medicamento medicamento;
 
         public bool VerificarNRSUS(int NRSUS, RepositorioPessoas rPessoas, DominioRequisicao dominio)
         {
@@ -35,24 +37,6 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
             else
                 return true;
         }
-
-        public bool BuscarPaciente(string nomePaciente, RepositorioPessoas rPessoas)
-        {
-            Paciente requisitante = rPessoas.RegistroPessoas.FirstOrDefault(p => p.Nome == nomePaciente);
-            if (requisitante == null)
-            {
-                Console.WriteLine("Paciente não encontrado");
-                return false;
-            }
-            else
-                return true;
-        }
-        public void AdicionarRegistro(Requisicao requisicao)
-        {
-            rRequisicao.registroRequisicao.Add(requisicao);
-        }
-
-
         public bool VerificarNRSUS(int verificarNRSUS, Paciente Verificador, RepositorioPessoas rPessoas)
         {
 
@@ -67,6 +51,23 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
             Console.WriteLine("NRSUS encontrado!");
 
             return true;
+        }
+
+
+        public bool BuscarPaciente(string nomePaciente, RepositorioPessoas rPessoas)
+        {
+            Paciente requisitante = rPessoas.RegistroPessoas.FirstOrDefault(p => p.Nome == nomePaciente);
+            if (requisitante == null)
+            {
+                Console.WriteLine("Paciente não encontrado");
+                return false;
+            }
+            else
+                return true;
+        }// não utilizado.
+        public void AdicionarRegistro(Requisicao requisicao)
+        {
+            rRequisicao.registroRequisicao.Add(requisicao);
         }
         public void VerPacientes(RepositorioPessoas rPaciente)
         {
@@ -107,6 +108,9 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
             }
             Console.ReadKey();
         }
+
+      
+
     }
 }
 

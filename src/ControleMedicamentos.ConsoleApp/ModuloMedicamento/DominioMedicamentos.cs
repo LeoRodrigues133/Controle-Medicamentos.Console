@@ -106,16 +106,16 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
             if (medicamento.Quantidade <= 20)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write(medicamento.Quantidade.ToString().PadRight(6));
+                Console.Write(medicamento.Quantidade.ToString().PadRight(11));
                 Console.ResetColor();
             }
             else
-                Console.Write(medicamento.Quantidade.ToString().PadRight(6));
+                Console.Write(medicamento.Quantidade.ToString().PadRight(11));
             return medicamento;
 
         }
 
-        public bool RetirarMedicamento(int Solicitacao,string teste, Medicamento verificador, RepositorioMedicamentos rMedicamentos)
+        public bool RetirarMedicamento(int Solicitacao, string teste, Medicamento verificador, RepositorioMedicamentos rMedicamentos)
         {
             verificador = rMedicamentos.estoque.FirstOrDefault(p => p.Nome == teste);
 
@@ -131,5 +131,21 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
             }
         }
         #endregion
+
+        public void Cabecalho()
+        {
+            Console.WriteLine("| ID".PadRight(5) +
+                               "| Nome".PadRight(19) +
+                               "| Descrição".PadRight(56) +
+                               "| Quantidade".PadRight(12) +
+                               "| Validade".PadRight(11) +
+                               " |");
+            Rodape();
+        }
+        public void Rodape()
+        {
+            Console.WriteLine(new string('-', 105));
+
+        }
     }
 }

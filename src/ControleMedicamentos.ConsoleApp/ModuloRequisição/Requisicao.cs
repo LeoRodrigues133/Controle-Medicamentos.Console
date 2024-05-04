@@ -7,13 +7,16 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
 {
     public class Requisicao : Entidade
     {
-        public RepositorioMedicamentos rM;
-        public RepositorioPessoas rP;
         public int IdRequisicao;
         public static int idRequisicao = 1;
-        public Requisicao(int IdRequisicao) : base()
+        public Requisicao(string nome, int NRSUS, string medicamento, int retirada) : base()
         {
+            retirada = retirada;
+            nome = nome;
+            medicamento = medicamento;
+            NRSUS = NRSUS;
             Id = idRequisicao++;
+
         }
     }
 }
