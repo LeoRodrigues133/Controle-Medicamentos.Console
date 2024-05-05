@@ -50,19 +50,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
             pacienteEditado.DataDeNascimento = novaDDN;
             return true;
         }
-        public void Excluir(int Seletor)
-        {
-
-            Paciente Verificador = (Paciente)rPessoas.RegistroPessoas.FirstOrDefault(M => M.Id == Seletor);
-
-            if (Verificador == null)
-                Console.WriteLine("Nenhum paciente encontrado!");
-
-            else
-            {
-                rPessoas.RegistroPessoas.Remove(Verificador);
-            }
-        }
+        
 
 
         public void Cabecalho()

@@ -45,7 +45,8 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
         {
             while (true)
             {
-                Console.WriteLine("MENU INICIAL");
+                Console.Clear();
+                Console.WriteLine("Menu inicial");
                 Console.WriteLine("Escolha uma opção: \n1 - Cadastrar Medicamentos\n2 - Cadastrar Pessoas\n3 - Menu de Paciente **(Usar para fazer requisição no balcão)**\n4 - Menu de Funcionário **(Usar para administrar requisições)**\n0 - Sair\n\n");
 
                 int opcao = Program.ObterValor<int>("Digite:\n");
@@ -77,7 +78,8 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
         {
             while (true)
             {
-                Console.WriteLine("CADASTRO DE MEDICAMENTOS!");
+                Console.Clear();
+                Console.WriteLine("Cadastro de medicamentos!");
                 Console.WriteLine("Escolha uma opção: \n1 - Cadastro\n2 - Ver Estoque\n3 - Atualizar Estoque\n4 - Excluir Item\n0 - Sair\n\n");
 
                 int opcao = Program.ObterValor<int>("Digite:\n");
@@ -91,11 +93,15 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                         MenuEstoque();
                         break;
                     case 3:
+                        estoqueMedicamentos.MostrarTodoEstoque(estoqueMedicamentos, dMedicamentos);
+
                         Seletor = Program.ObterValor<int>("Selecione um ID: ");
 
                         uiMedicamentos.MenuAtualizarMedicamento(Seletor, dMedicamentos);
                         break;
                     case 4:
+                        estoqueMedicamentos.MostrarTodoEstoque(estoqueMedicamentos, dMedicamentos);
+
                         Seletor = Program.ObterValor<int>("Selecione um ID para excluir:");
 
                         estoqueMedicamentos.ExcluirMedicamento(Seletor, estoqueMedicamentos);
@@ -113,9 +119,10 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
         }
         public void MenuPessoas()
         {
-            Console.WriteLine("CADASTRO DE PESSOAS!");
             while (true)
             {
+                Console.Clear();
+                Console.WriteLine("Cadastro de pacientes!");
                 Console.WriteLine("Escolha uma opção: \n1 - Cadastro\n2 - Ver Estoque\n3 - Atualizar Estoque\n4 - Excluir Item\n0 - Sair\n\n");
 
                 int opcao = Program.ObterValor<int>("Digite:\n");
@@ -129,14 +136,18 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                         registroPessoas.MenuVerPessoas(registroPessoas, dPessoas);
                         break;
                     case 3:
+                        registroPessoas.MenuVerPessoas(registroPessoas, dPessoas);
+
                         Seletor = Program.ObterValor<int>("Selecione o ID que deseja atualizar: ");
 
                         uiPessoas.MenuAtualizarPessoas(Seletor);
                         break;
                     case 4:
+                        registroPessoas.MenuVerPessoas(registroPessoas, dPessoas);
+
                         Seletor = Program.ObterValor<int>("Digite o ID que deseja deletar: ");
 
-                        uiPessoas.MenuExluirPessoa(Seletor);
+                        registroPessoas.Excluir(Seletor, paciente, registroPessoas, dPessoas);
                         break;
                     case 0:
                         MenuInicial();
@@ -151,9 +162,10 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
 
         public void MenuRequisicao(InterfaceRequisicao uiRequisicao)
         {
-            Console.WriteLine("ATENDIMENTO DE UNIDADE DE SAÚDE!");
             while (true)
             {
+                Console.Clear();
+                Console.WriteLine("Atendimento da unidade de saúde!");
                 Console.WriteLine("Escolha uma opção: \n1 - Fazer Pedido de medicamento\n0 - Sair\n\n");
 
                 int opcao = Program.ObterValor<int>("Digite:\n");
@@ -177,9 +189,10 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
 
         public void MenuAtendimento()
         {
-            Console.WriteLine("Menu de atendimento ao paciente!");
             while (true)
             {
+                Console.Clear();
+                Console.WriteLine("Menu de atendimento ao paciente!");
                 Console.WriteLine("Escolha uma opção:\n1 - Ver requisições\n2 - Gestão de Requisições\n0 - Sair\n\n");
                 int opcao = Program.ObterValor<int>("Digite:");
 
@@ -189,7 +202,7 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                         rRequisicao.VerRequisicao(rRequisicao, registroPessoas, estoqueMedicamentos, paciente, medicamento, dRequisicao);
                         break;
                     case 2:
-                        uiRequisicao.MenuGerenciamentoRequisicoes(registroPessoas, estoqueMedicamentos, paciente, medicamento, dRequisicao, rRequisicao, requisicao);
+                        uiRequisicao.MenuGerenciamentoRequisicoes(registroPessoas, estoqueMedicamentos, paciente, medicamento, dRequisicao, rRequisicao, requisicao, uiRequisicao);
                         break;
                     case 0:
                         MenuInicial();
@@ -200,9 +213,10 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
 
         public void MenuEstoque()
         {
-            Console.WriteLine("Menu de Gerenciamento do estoque");
             while (true)
             {
+                Console.Clear();
+                Console.WriteLine("Menu de Gerenciamento do estoque");
                 Console.WriteLine("Escolha uma opção: \n1 - Verificar estoque\n2 - Verificar quantidade crítica\n3 - Verificar medicamentos em falta\n0 - Sair\n\n");
 
                 int opcao = Program.ObterValor<int>("Digite:\n");
@@ -229,12 +243,5 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloInterface
                 }
             }
         }
-        public bool Continua(int opcao)
-        {
-            if (opcao == 0)
-                return false;
-            return true;
-        }
     }
-
 }

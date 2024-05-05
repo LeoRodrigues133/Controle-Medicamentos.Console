@@ -41,16 +41,18 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
             DateTime dataDeNascimento = Program.ObterValor<DateTime>("Digite DDNascimento: \n");
 
             Paciente novoPaciente = new(nome, registroSUS, cpf, endereco, dataDeNascimento);
-            rPessoas.CadastrarPessoa(novoPaciente, rPessoas);
+            rPessoas.CadastrarPessoa(novoPaciente, rPessoas, dominio);
+            //rPessoas.MenuVerPessoas(rPessoas, dominio);
+
 
         }
 
 
         public void MenuAtualizarPessoas(int Seletor)
         {
-            rPessoas.MenuVerPessoas(rPessoas, dominio);
 
             Atualizar(Seletor);
+            rPessoas.MenuVerPessoas(rPessoas, dominio);
         }
         public void Atualizar(int Seletor)
         {
@@ -92,13 +94,5 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPessoa
                     break;
             }
         }
-
-
-        public void MenuExluirPessoa(int Seletor)
-        {
-
-            dominio.Excluir(Seletor);
-        }
-
     }
 }

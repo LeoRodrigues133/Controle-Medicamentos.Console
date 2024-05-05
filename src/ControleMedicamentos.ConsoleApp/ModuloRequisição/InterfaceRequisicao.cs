@@ -57,11 +57,11 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicao
 
             return rMedicamentos.estoque.FirstOrDefault(m => m.Nome == nomeMedicamento);
         }
-        private Requisicao SelecionarRequisicao(DominioRequisicao dRequisicao, RepositorioRequisicao rRequisicao, Medicamento medicamento, Requisicao requisicao, Paciente paciente, RepositorioMedicamentos estoqueMedicamentos, RepositorioPessoas registroPessoas)
+        private Requisicao SelecionarRequisicao(DominioRequisicao dRequisicao, RepositorioRequisicao rRequisicao, Medicamento medicamento, Requisicao requisicao, Paciente paciente, RepositorioMedicamentos estoqueMedicamentos, RepositorioPessoas registroPessoas, InterfaceRequisicao uiRequisicao)
         {
             int IdBuscador = Program.ObterValor<int>("Selecione um ID:");
-            dRequisicao.AceitarRequisicao(IdBuscador, registroPessoas, estoqueMedicamentos, paciente, dRequisicao, rRequisicao);
-
+            dRequisicao.AceitarRequisicao(IdBuscador, registroPessoas, estoqueMedicamentos, paciente, dRequisicao, rRequisicao, uiRequisicao);
+            Console.ReadKey();
 
             return rRequisicao.registroRequisicao.FirstOrDefault(m => m.IdRequisicao == IdBuscador);
 
@@ -73,13 +73,13 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicao
             rRequisicao.GuardarRequisicao(rPessoas, rRequisicao, rMedicamentos, novaRequisicao, dRequisicao);
         }
 
-        public void MenuGerenciamentoRequisicoes(RepositorioPessoas registroPessoas, RepositorioMedicamentos estoqueMedicamentos, Paciente paciente, Medicamento medicamento, DominioRequisicao dRequisicao, RepositorioRequisicao rRequisicao, Requisicao requisicao)
+        public void MenuGerenciamentoRequisicoes(RepositorioPessoas registroPessoas, RepositorioMedicamentos estoqueMedicamentos, Paciente paciente, Medicamento medicamento, DominioRequisicao dRequisicao, RepositorioRequisicao rRequisicao, Requisicao requisicao, InterfaceRequisicao uiRequisicao)
         {
             rRequisicao.VerRequisicao(rRequisicao, registroPessoas, estoqueMedicamentos, paciente, medicamento, dRequisicao);
 
-            SelecionarRequisicao(dRequisicao, rRequisicao, medicamento, requisicao, paciente, estoqueMedicamentos, registroPessoas);
+            SelecionarRequisicao(dRequisicao, rRequisicao, medicamento, requisicao, paciente, estoqueMedicamentos, registroPessoas, uiRequisicao);
             //int IdBuscador = Program.ObterValor<int>("Selecione um ID:");
-            //while (!dRequisicao.AceitarRequisicao(IdBuscador, registroPessoas, estoqueMedicamentos, paciente, medicamento, dRequisicao, rRequisicao))
+            //while (!dRequisicao.AceitarRequisicao(IdBuscador, registroPessoas, estoqueMedicamentos, paciente, dRequisicao, rRequisicao))
             //    IdBuscador = Program.ObterValor<int>("Selecione um ID:");
 
 

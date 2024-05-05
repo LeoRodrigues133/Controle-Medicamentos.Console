@@ -91,8 +91,6 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
         }
         public void AtualizarMedicamento(int Seletor, DominioMedicamentos dominio, RepositorioMedicamentos repositorioMedicamentos)
         {
-            MostrarTodoEstoque(repositorioMedicamentos, dominio);
-
             Medicamento Verificador = estoque.FirstOrDefault(M => M.Id == Seletor);
 
             if (Verificador == null)
@@ -100,6 +98,8 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
             else
             {
                 dominio.AtualizarCampo(Verificador);
+                repositorioMedicamentos.MostrarTodoEstoque(repositorioMedicamentos, dominio);
+
             }
 
             //        public Medicamento(int id, string nome, string descricao, int quantidade, datetime validade)
@@ -107,7 +107,6 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
 
         public void ExcluirMedicamento(int Seletor, RepositorioMedicamentos repositorioMedicamentos)
         {
-            MostrarTodoEstoque(repositorioMedicamentos, dominio);
             Medicamento Verificador = estoque.FirstOrDefault(M => M.Id == Seletor);
 
             if (Verificador == null)
@@ -116,6 +115,8 @@ namespace Controle_de_Medicamentos_2024_ConsoleApp.ModuloMedicamento
             else
             {
                 estoque.Remove(Verificador);
+                MostrarTodoEstoque(repositorioMedicamentos, dominio);
+
             }
         } // Delete
 

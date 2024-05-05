@@ -59,6 +59,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
                     menu.MenuMedicamentos();
                     break;
             }
+
         }
 
         #region Métodos do Update

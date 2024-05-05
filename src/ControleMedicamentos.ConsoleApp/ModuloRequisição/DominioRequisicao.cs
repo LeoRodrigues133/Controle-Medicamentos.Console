@@ -89,30 +89,35 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisição
                 }
             }
         }
-        public bool AceitarRequisicao(int IdBuscador, RepositorioPessoas registroPessoas, RepositorioMedicamentos estoqueMedicamentos, Paciente paciente, DominioRequisicao dRequisicao, RepositorioRequisicao rRequisicao)
+        public bool AceitarRequisicao(int IdBuscador, RepositorioPessoas registroPessoas, RepositorioMedicamentos estoqueMedicamentos, Paciente paciente, DominioRequisicao dRequisicao, RepositorioRequisicao rRequisicao, InterfaceRequisicao uiRequisicao)
         {
 
             Requisicao verificador = rRequisicao.registroRequisicao.FirstOrDefault(r => r.Id == IdBuscador);
 
-            if (verificador == null)
+            if (verificador != null)
+            {
+                if (uiRequisicao.MenuGestaoRequisicao())
+                {
+
+                    Medicamento medicamento = estoqueMedicamentos.estoque.FirstOrDefault(m => m.Nome == verificador.medicamento);
+
+                    if (ObterQuantidadeSolicitada(medicamento, verificador, verificador.retirada) == 0)
+                    {
+                        Console.WriteLine("Quantidade solicitada não disponível no estoque.");
+                        return false;
+                    }
+                    else
+                    {
+                        rRequisicao.registroRequisicao.Remove(verificador);
+                        return true;
+                    }
+                }
+            }
+            else if (verificador == null)
             {
                 Console.WriteLine("Nenhuma requisição encontada!");
-                return false;
             }
-            Medicamento medicamento = estoqueMedicamentos.estoque.FirstOrDefault(m => m.Nome == verificador.medicamento);
-
-            if (ObterQuantidadeSolicitada(medicamento, verificador, verificador.retirada) == 0)
-            {
-                Console.WriteLine("Quantidade solicitada não disponível no estoque.");
-                return false;
-            }
-            else
-            {
-                rRequisicao.registroRequisicao.Remove(verificador);
-                return true;
-            }
-
-
+            return false;
         }
 
         public int ObterQuantidadeSolicitada(Medicamento medicamento, Requisicao requisicao, int quantidade)
