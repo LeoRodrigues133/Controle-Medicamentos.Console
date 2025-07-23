@@ -1,5 +1,6 @@
 ﻿{
   "title": "Sistema de Gerenciamento de Farmácia",
   "description": "Sistema de gerenciamento de farmácia em console, faz cadastro, atualização, remoção e visualição de medicamentos, requisição de medicamentos, cadastro de atendimentos, gestão de atendimentos.",
-  "gif": "https://raw.githubusercontent.com/LeoRodrigues133/Controle-Medicamentos.Console/refs/heads/master/src/docs/img/Apresentacao.gif"
+  "gif": "https://raw.githubusercontent.com/LeoRodrigues133/Controle-Medicamentos.Console/refs/heads/master/src/docs/img/Apresentacao.gif",
+  "lastCommit": "configurado para portfólio"
 }
